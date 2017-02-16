@@ -16,8 +16,6 @@
         [Required]
         public decimal SalePrice { get; set; }
 
-        public float PorcentageIncrease { get; set; }
-
-        public List<Code> Codes { get; set; }
+        public Code BarCode { get; set; }
     }
 }

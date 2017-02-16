@@ -13,7 +13,7 @@
 
     public class Startup
     {
-        private MapperConfiguration _mapperConfiguration { get; set; }
+        //private MapperConfiguration _mapperConfiguration { get; set; }
 
         public Startup(IHostingEnvironment env)
         {
@@ -29,10 +29,10 @@
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
 
-            _mapperConfiguration = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapperProfileConfig());
-            });
+            //_mapperConfiguration = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.AddProfile(new AutoMapperProfileConfig());
+            //});
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -42,13 +42,12 @@
         {
             // Add framework services.
             services.AddMvc();
+            services.AddAutoMapper();
             services.AddDbContext<AngelContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IRegistryRepository, RegistryRepository>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
-
-            services.AddSingleton(sp => _mapperConfiguration.CreateMapper());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

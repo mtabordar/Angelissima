@@ -40,7 +40,7 @@ export class ProductService {
     let headers = new Headers;
     headers.append('Content-Type', 'application/json')
 
-    return this.http.put('http://localhost:60104/api/product/' + product.id, JSON.stringify(product), { headers: headers })
+    return this.http.put('http://localhost:60104/api/product/' + product.productId, JSON.stringify(product), { headers: headers })
       .map((responseData) => {
         return responseData.json();
       })

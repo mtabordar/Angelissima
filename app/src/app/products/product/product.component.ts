@@ -4,8 +4,11 @@ import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 
 import { Product } from '../shared/product';
+import { BarCode } from '../../barcodes/shared/barcode';
 
 import { ProductService } from '../shared/product.service';
+
+import Operations from '../../shared/operations'
 
 @Component({
   selector: 'product',
@@ -63,11 +66,15 @@ export class ProductComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.product.id) {
+    if (this.product.productId) {
       this.updateProduct();
     }
     else {
       this.insertProduct();
     }
+  }
+  
+  calculateSalePrice(): void {
+    this.product.salePrice = Operations.calculateAfterPercentage(this.product.unitPrice);
   }
 }

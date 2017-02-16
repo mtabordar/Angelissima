@@ -8,9 +8,10 @@ using AngelissimaApi.Models;
 namespace AngelissimaApi.Migrations
 {
     [DbContext(typeof(AngelContext))]
-    partial class AngelContextModelSnapshot : ModelSnapshot
+    [Migration("20170215160128_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -46,6 +47,8 @@ namespace AngelissimaApi.Migrations
 
                     b.Property<DateTime>("RegistrationDate");
 
+                    b.Property<DateTime>("UpdatedAt");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
@@ -67,6 +70,8 @@ namespace AngelissimaApi.Migrations
 
                     b.Property<decimal>("UnitPrice");
 
+                    b.Property<DateTime>("UpdatedAt");
+
                     b.HasKey("Id");
 
                     b.ToTable("Product");
@@ -84,6 +89,8 @@ namespace AngelissimaApi.Migrations
                     b.Property<int>("Quantity");
 
                     b.Property<DateTime>("SaleDate");
+
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 

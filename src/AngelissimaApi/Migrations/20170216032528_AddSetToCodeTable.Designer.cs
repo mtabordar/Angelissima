@@ -8,14 +8,33 @@ using AngelissimaApi.Models;
 namespace AngelissimaApi.Migrations
 {
     [DbContext(typeof(AngelContext))]
-    [Migration("20170210213252_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20170216032528_AddSetToCodeTable")]
+    partial class AddSetToCodeTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
+
+            modelBuilder.Entity("AngelissimaApi.Models.Code", b =>
+                {
+                    b.Property<int>("ProductId");
+
+                    b.Property<string>("BarCode");
+
+                    b.HasKey("ProductId", "BarCode");
+
+                    b.HasAlternateKey("BarCode");
+
+
+                    b.HasAlternateKey("BarCode", "ProductId");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("Code");
+                });
 
             modelBuilder.Entity("AngelissimaApi.Models.Inventory", b =>
                 {
@@ -27,8 +46,6 @@ namespace AngelissimaApi.Migrations
                     b.Property<int>("Quantity");
 
                     b.Property<DateTime>("RegistrationDate");
-
-                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 
@@ -47,13 +64,9 @@ namespace AngelissimaApi.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<float>("PorcentageIncrease");
-
                     b.Property<decimal>("SalePrice");
 
                     b.Property<decimal>("UnitPrice");
-
-                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 
@@ -73,13 +86,19 @@ namespace AngelissimaApi.Migrations
 
                     b.Property<DateTime>("SaleDate");
 
-                    b.Property<DateTime>("UpdatedAt");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("Registry");
+                });
+
+            modelBuilder.Entity("AngelissimaApi.Models.Code", b =>
+                {
+                    b.HasOne("AngelissimaApi.Models.Product", "Product")
+                        .WithOne("BarCode")
+                        .HasForeignKey("AngelissimaApi.Models.Code", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AngelissimaApi.Models.Inventory", b =>

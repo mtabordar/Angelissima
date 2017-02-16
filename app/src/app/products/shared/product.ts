@@ -1,8 +1,10 @@
+import { BarCode } from '../../barcodes/shared/barcode';
+
 export class Product {
-  id: number;
+  productId: number;
   name: string;
   description: string;
   unitPrice: number;
   salePrice: number;
-  percentageIncrease: number;
+  barCode: string;
 }

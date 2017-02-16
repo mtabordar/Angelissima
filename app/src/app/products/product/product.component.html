@@ -8,25 +8,24 @@
             </div>
             <div class="form-group">
                 <label for="description">Description:</label>
-                <input type="text" id="description" name="description" class="form-control" [(ngModel)]="product.description" placeholder="Period Duration"
+                <input type="text" id="description" name="description" class="form-control" [(ngModel)]="product.description" placeholder="Description"
                     required>
             </div>
             <div class="form-group">
                 <label for="unitPrice">Unit Price:</label>
-                <input type="number" id="unitPrice" name="unitPrice" class="form-control" [(ngModel)]="product.unitPrice" placeholder="Quantity in stock">
+                <input type="number" step="1" id="unitPrice" name="unitPrice" class="form-control" [(ngModel)]="product.unitPrice" placeholder="Unit Price"
+                    (blur)="calculateSalePrice()" required>
             </div>
             <div class="form-group">
                 <label for="salePrice">Sale Price:</label>
-                <input type="number" id="salePrice" name="salePrice" class="form-control" [(ngModel)]="product.salePrice" placeholder="Sale Price"
+                <input type="number" step="1" id="salePrice" name="salePrice" class="form-control" [(ngModel)]="product.salePrice" placeholder="Sale Price"
                     required>
             </div>
             <div class="form-group">
-                <label for="percentageIncrease">Percentage Increase:</label>
-                <input type="number" id="percentageIncrease" name="percentageIncrease" class="form-control" [(ngModel)]="product.percentageIncrease"
-                    placeholder="Percentage Increase" required>
+                <label for="salePrice">Bar Code:</label>
+                <input type="text" id="barCode" name="barCode" class="form-control" [(ngModel)]="product.barCode" placeholder="Bar Code"
+                    required>
             </div>
-            <barcodes></barcodes>
-
             <button class="btn" type="button" (click)="goBack()">Back</button>
             <button type="submit" ng-disabled="productForm.$invalid" class="btn btn-success">Save</button>
         </div>

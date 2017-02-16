@@ -17,7 +17,6 @@ namespace AngelissimaApi.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Description = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: false),
-                    PorcentageIncrease = table.Column<float>(nullable: false),
                     SalePrice = table.Column<decimal>(nullable: false),
                     UnitPrice = table.Column<decimal>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false)
@@ -25,6 +24,26 @@ namespace AngelissimaApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Product", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Code",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(nullable: false),
+                    BarCode = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Code", x => new { x.ProductId, x.BarCode });
+                    table.UniqueConstraint("AK_Code_BarCode", x => x.BarCode);
+                    table.UniqueConstraint("AK_Code_BarCode_ProductId", x => new { x.BarCode, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_Code_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,6 +92,12 @@ namespace AngelissimaApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Code_ProductId",
+                table: "Code",
+                column: "ProductId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Inventory_ProductId",
                 table: "Inventory",
                 column: "ProductId");
@@ -85,6 +110,9 @@ namespace AngelissimaApi.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Code");
+
             migrationBuilder.DropTable(
                 name: "Inventory");
 

@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
 
-    public class AngelContext : DbContext   
+    public class AngelContext : DbContext
     {
         public AngelContext(DbContextOptions<AngelContext> options) : base(options)
         {
@@ -13,10 +13,13 @@
         public DbSet<Product> Products { get; set; }
         public DbSet<Inventory> Inventory { get; set; }
         public DbSet<Registry> Registry { get; set; }
+        public DbSet<Code> Codes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().ToTable("Product");
+            modelBuilder.Entity<Code>().ToTable("Code");
+            modelBuilder.Entity<Code>().HasKey(c => new { c.ProductId, c.BarCode });
         }
 
         public void EnsureSeedData()

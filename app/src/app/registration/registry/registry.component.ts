@@ -25,6 +25,7 @@ export class RegistryComponent {
     , private router: Router
     , private location: Location) {
     this.registry = new Registry;
+    this.registry.saleDate = new Date();
   }
 
   getProduct(id: number): void {
@@ -50,7 +51,7 @@ export class RegistryComponent {
     this.insertProduct();
   }
 
-  onSelectionDone($event) {
-    this.showDatePicker = false;
+  datepickerOpts = {
+    autoclose: true
   }
 }

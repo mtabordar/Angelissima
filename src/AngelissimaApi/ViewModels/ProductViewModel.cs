@@ -5,6 +5,8 @@
 
     public class ProductViewModel
     {
+        public int ProductId { get; set; }
+
         [Required]
         public string Name { get; set; }
 
@@ -16,8 +18,6 @@
         [Required]
         public decimal SalePrice { get; set; }
 
-        public float PorcentageIncrease { get; set; }
-
-        public List<float> BarCodes { get; set; }
+        public string BarCode { get; set; }
     }
 }

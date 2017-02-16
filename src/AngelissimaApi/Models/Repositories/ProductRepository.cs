@@ -7,39 +7,45 @@
 
     public class ProductRepository : IProductRepository
     {
-        private AngelContext context;
+        private AngelContext _context;
 
         public ProductRepository(AngelContext context)
         {
-            this.context = context;
+            this._context = context;
         }
 
         public void Add(Product item)
         {
-            context.Products.Add(item);
-            context.SaveChanges();
+            _context.Products.Add(item);
+            _context.SaveChanges();
         }
 
         public Product Find(int id)
         {
-            return context.Products.FirstOrDefault(p => p.Id == id);
+            return _context.Products.Include(c => c.BarCode).FirstOrDefault(p => p.Id == id);
         }
 
         public IEnumerable<Product> GetAll()
         {
-            return context.Products.Include(c => c.Codes).ToList();
+            return _context.Products.Include(c => c.BarCode).ToList();
         }
 
         public void Remove(int id)
         {
-            context.Products.Remove(Find(id));
-            context.SaveChanges();
+            _context.Products.Remove(Find(id));
+            _context.SaveChanges();
         }
 
         public void Update(Product item)
         {
-            context.Products.Update(item);
-            context.SaveChanges();
+            Code cod = _context.Codes.FirstOrDefault(c => c.ProductId == item.Id);
+            _context.Codes.Remove(cod);
+
+            _context.Codes.Add(item.BarCode);
+
+            _context.Products.Update(item);
+
+            _context.SaveChanges();
         }
     }
 }

@@ -78,7 +78,7 @@
 
         // PUT api/product/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]ProductViewModel product)
+        public IActionResult Put([FromBody]ProductViewModel product)
         {
             try
             {
