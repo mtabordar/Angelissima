@@ -1,7 +1,10 @@
+import { Product } from '../../products/shared/product';
+
 export class Registry {
-  id: number;
   saleDate: Date;
   quantity: number;
   price: number;
-  //product: Product;
+  totalPrice: number;
+  productId: number;
+  product: Product;
 }

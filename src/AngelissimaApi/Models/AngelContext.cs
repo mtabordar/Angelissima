@@ -1,5 +1,6 @@
 ﻿namespace AngelissimaApi.Models
 {
+    using Configurations;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
 
@@ -17,9 +18,10 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().ToTable("Product");
-            modelBuilder.Entity<Code>().ToTable("Code");
-            modelBuilder.Entity<Code>().HasKey(c => new { c.ProductId, c.BarCode });
+            modelBuilder.Entity<Product>(ProductConfiguration.ConfigureProductEntity);
+            modelBuilder.Entity<Code>(CodeConfiguration.ConfigureCodeEntity);
+            modelBuilder.Entity<Inventory>(InventoryConfiguration.ConfigureInventoryEntity);
+            modelBuilder.Entity<Registry>(RegistryConfiguration.ConfigureRegistryEntity);
         }
 
         public void EnsureSeedData()

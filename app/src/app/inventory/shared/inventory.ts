@@ -1,6 +1,9 @@
+import { Product } from '../../products/shared/product';
+
 export class Inventory {
-  id: number;
   registrationDate: Date;
   quantity: number;
-  //product: Product;
+  totalQuantity: number;
+  productId: number;
+  product: Product;
 }

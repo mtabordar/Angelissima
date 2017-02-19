@@ -1,0 +1,21 @@
+<div *ngIf="product" class="container-fluid">
+    <div>
+        <h2>Product</h2>
+        <div class="row">
+            <label for="name">Name:</label>
+            <span id="name" name="name">{{product.name}}</span>
+        </div>
+        <div class="row">
+            <label for="description">Description:</label>
+            <span id="description" name="description" >{{product.description}}</span>
+        </div>       
+        <div class="row">
+            <label for="salePrice">Sale Price:</label>
+            <span id="salePrice" name="salePrice">{{product.salePrice}}</span>
+        </div>
+        <div class="row">
+            <label for="salePrice">Bar Code:</label>
+            <span id="barCode" name="barCode">{{product.barCode}}</span>
+        </div>
+    </div>
+</div>

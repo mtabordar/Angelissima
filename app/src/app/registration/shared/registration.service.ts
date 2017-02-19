@@ -25,30 +25,11 @@ export class RegistrationService {
       .catch(this.handleError);
   }
 
-  insertProduct(product: Registry): Observable<string> {
+  insertRegistry(registry: Registry[]): Observable<string> {
     let headers = new Headers;
     headers.append('Content-Type', 'application/json')
 
-    return this.http.post('http://localhost:60104/api/registration', JSON.stringify(product), { headers: headers })
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .catch(this.handleError);
-  }
-
-  updateProduct(product: Registry): Observable<string> {
-    let headers = new Headers;
-    headers.append('Content-Type', 'application/json')
-
-    return this.http.put('http://localhost:60104/api/registration/' + product.id, JSON.stringify(product), { headers: headers })
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .catch(this.handleError);
-  }
-
-  deleteProduct(id: number): Observable<string> {
-    return this.http.delete('http://localhost:60104/api/registration/' + id)
+    return this.http.post('http://localhost:60104/api/registration', JSON.stringify(registry), { headers: headers })
       .map((responseData) => {
         return responseData.json();
       })

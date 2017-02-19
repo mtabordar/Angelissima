@@ -1,36 +1,93 @@
 <div class="container">
-    <form name="registryForm" (ngSubmit)="onSubmit()">
-        <div class="col-md-8 col-md-offset-2">
-            <h2>Registration</h2>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="name">Bar Code:</label>
-                    <input type="text" id="name" name="name" class="form-control" [(ngModel)]="registry.name" placeholder="name" required>
-                </div>
+    <div class="col-md-8 col-md-offset-2">
+        <h2>Registration</h2>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="barCode">Bar Code:</label>
+                <input type="text" id="barCode" name="barCode" class="form-control" [(ngModel)]="registry.product.barCode" placeholder="Bar Code"
+                    list-formatter="value" required>
             </div>
-            <div class="row">
-                <div class="form-group col-md-8">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" class="form-control" [(ngModel)]="registry.name" placeholder="name" required>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="saleDate">Sale Date:</label>
-                    <datetime readonly name="saleDate" [(ngModel)]="registry.saleDate" [timepicker]="false" [datepicker]="{ autoclose: true, enableOnReadonly: true }" placeholder="saleDate"></datetime>                    
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" id="quantity" name="quantity" class="form-control" [(ngModel)]="registry.quantity" placeholder="Quantity"
-                        required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="price">Price:</label>
-                    <input type="number" id="price" name="price" class="form-control" [(ngModel)]="registry.price" placeholder="Price" readonly>
-                </div>
-            </div>
-            <button class="btn" type="button" (click)="goBack()">Back</button>
-            <button type="submit" ng-disabled="registryForm.$invalid" class="btn btn-success">Save</button>
         </div>
-    </form>
+        <div class="row">
+            <div class="form-group col-md-8">
+                <label for="name">Name:</label>
+                <input class="form-control" auto-complete [(ngModel)]="selectedproductName" (valueChanged)="onValueChanged($event)" [source]="autocompleteList"
+                    placeholder="name" required/>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="saleDate">Sale Date:</label>
+                <datetime readonly name="saleDate" [(ngModel)]="registry.saleDate" [timepicker]="false" [datepicker]="{ autoclose: true, enableOnReadonly: true }"
+                    placeholder="saleDate"></datetime>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" class="form-control" [(ngModel)]="registry.quantity" placeholder="Quantity"
+                    required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" class="form-control" [(ngModel)]="registry.price" placeholder="Price" readonly>
+            </div>
+        </div>
+        <button type="button" class="btn btn-success" (click)="onAdd()">Add</button>
+        <div *ngIf="registryList.length > 0">
+            <form name="registryForm" (ngSubmit)="onSubmit()">
+                <div class='table-responsive col-md-6"'>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th>Bar Code</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total price</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let registry of registryList'>
+                                <td>{{registry.product.barCode}}</td>
+                                <td>{{registry.product.name}}</td>
+                                <td>{{registry.quantity}}</td>
+                                <td>{{registry.price}}</td>
+                                <td>{{registry.totalPrice}}</td>
+                                <td>
+                                    <button (click)="onDelete(registry.product.productId)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <h3>Totals:</h3>
+                                </td>
+                                <td colspan="2">
+                                    <h3>{{totalPrice}}</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <h3>Total Cash:</h3>
+                                </td>
+                                <td colspan="2">
+                                    <input type="number" id="totalCash" name="totalCash" class="form-control" [(ngModel)]="totalCash" placeholder="Total cash">
+                                </td>
+                            </tr>
+                            <tr *ngIf="totalCash > totalPrice">
+                                <td colspan="4">
+                                    <h3>Return Cash:</h3>
+                                </td>
+                                <td colspan="2">
+                                    <h3>{{totalCash-totalPrice}}</h3>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" ng-disabled="registryForm.$invalid" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

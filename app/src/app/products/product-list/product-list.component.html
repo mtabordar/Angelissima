@@ -1,40 +1,50 @@
-<div class='panel panel-primary col-md-8 col-md-offset-2'>
-    <div class='panel-heading'>
-        Products
-    </div>
-    <button [routerLink]="['/product']">
+<div class="col-md-8 col-md-offset-2">
+    <div class='panel panel-primary'>
+        <div class='panel-heading'>
+            Products
+        </div>
+        <button [routerLink]="['/product']">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
 
-    <!-- Filter the Products   -->
-    <div class='panel-body'>
-        <div class='table-responsive'>
-            <table class='table'>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor='let product of products'>
-                        <td>{{product.name}}</td>
-                        <td>{{product.salePrice}}</td>
-                        <td>
-                            <button [routerLink]="['/product', product.productId, 'edit']">
-                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                            </button>
-                        </td>
-                        <td>
-                            <button (click)="onDelete(product.productId)">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Filter the Products   -->
+        <div class='panel-body'>
+                <div class='table-responsive'>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Edit</th>
+                                <th>Inventory</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let product of filteredProducts'>
+                                <td>{{product.name}}</td>
+                                <td>{{product.salePrice}}</td>
+                                <td>
+                                    <button [routerLink]="['/product', product.productId, 'edit']">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                                </td>
+                                <td>
+                                    <button [routerLink]="['/inventory', product.productId]">
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                </button>
+                                </td>
+                                <td>
+                                    <button (click)="onDelete(product.productId)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <pagination [boundaryLinks]="true" [totalItems]="totalItems" [(ngModel)]="currentPage" class="pagination-sm" itemsPerPage="10"
+                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+            </div>
         </div>
     </div>
 </div>

@@ -50,7 +50,9 @@ export class ProductService {
   deleteProduct(id: number): Observable<string> {
     return this.http.delete('http://localhost:60104/api/product/' + id)
       .map((responseData) => {
-        return responseData.json();
+        if(responseData.status == 200){
+          return "";
+        } 
       })
       .catch(this.handleError);
   }

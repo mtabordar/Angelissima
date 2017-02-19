@@ -25,10 +25,11 @@ export class ProductComponent implements OnInit {
     , private route: ActivatedRoute
     , private router: Router
     , private location: Location) {
-    this.product = new Product;
   }
 
   ngOnInit(): void {
+    this.product = new Product;
+
     this.sub = this.route.params.subscribe(params => {
       let productId: number = +params['id'];
       if (productId) {

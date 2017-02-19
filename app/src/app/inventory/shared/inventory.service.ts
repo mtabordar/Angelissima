@@ -11,13 +11,7 @@ export class InventoryService {
 
   }
 
-  getProducts(): Observable<Inventory[]> {
-    return this.http.get('http://localhost:60104/api/inventory')
-      .map((responseData) => { return responseData.json(); })
-      .catch(this.handleError);
-  }
-
-  getProduct(id: number): Observable<Inventory> {
+  getInventoryForProduct(id: number): Observable<Inventory> {
     return this.http.get('http://localhost:60104/api/inventory/' + id)
       .map((responseData) => {
         return responseData.json();
@@ -25,30 +19,11 @@ export class InventoryService {
       .catch(this.handleError);
   }
 
-  insertProduct(product: Inventory): Observable<string> {
+  insertInventory(product: Inventory): Observable<string> {
     let headers = new Headers;
     headers.append('Content-Type', 'application/json')
 
     return this.http.post('http://localhost:60104/api/inventory', JSON.stringify(product), { headers: headers })
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .catch(this.handleError);
-  }
-
-  updateProduct(product: Inventory): Observable<string> {
-    let headers = new Headers;
-    headers.append('Content-Type', 'application/json')
-
-    return this.http.put('http://localhost:60104/api/inventory/' + product.id, JSON.stringify(product), { headers: headers })
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .catch(this.handleError);
-  }
-
-  deleteProduct(id: number): Observable<string> {
-    return this.http.delete('http://localhost:60104/api/inventory/' + id)
       .map((responseData) => {
         return responseData.json();
       })

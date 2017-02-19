@@ -20,6 +20,8 @@
             CreateMap<Product, ProductViewModel>()
                 .ForMember(pvm => pvm.ProductId, options => options.MapFrom(prod => prod.Id))
                 .ForMember(pvm => pvm.BarCode, options => options.MapFrom(prod => prod.BarCode.BarCode));
+
+            CreateMap<InventoryViewModel, Inventory>().ReverseMap();
         }
     }
 }

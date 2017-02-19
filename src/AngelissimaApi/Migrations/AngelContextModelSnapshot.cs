@@ -24,11 +24,6 @@ namespace AngelissimaApi.Migrations
 
                     b.HasKey("ProductId", "BarCode");
 
-                    b.HasAlternateKey("BarCode");
-
-
-                    b.HasAlternateKey("BarCode", "ProductId");
-
                     b.HasIndex("ProductId")
                         .IsUnique();
 

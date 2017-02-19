@@ -8,8 +8,8 @@ using AngelissimaApi.Models;
 namespace AngelissimaApi.Migrations
 {
     [DbContext(typeof(AngelContext))]
-    [Migration("20170216032528_AddSetToCodeTable")]
-    partial class AddSetToCodeTable
+    [Migration("20170217193450_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,11 +24,6 @@ namespace AngelissimaApi.Migrations
                     b.Property<string>("BarCode");
 
                     b.HasKey("ProductId", "BarCode");
-
-                    b.HasAlternateKey("BarCode");
-
-
-                    b.HasAlternateKey("BarCode", "ProductId");
 
                     b.HasIndex("ProductId")
                         .IsUnique();

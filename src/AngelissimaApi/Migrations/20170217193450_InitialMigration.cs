@@ -18,8 +18,7 @@ namespace AngelissimaApi.Migrations
                     Description = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     SalePrice = table.Column<decimal>(nullable: false),
-                    UnitPrice = table.Column<decimal>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                    UnitPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,8 +35,6 @@ namespace AngelissimaApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Code", x => new { x.ProductId, x.BarCode });
-                    table.UniqueConstraint("AK_Code_BarCode", x => x.BarCode);
-                    table.UniqueConstraint("AK_Code_BarCode_ProductId", x => new { x.BarCode, x.ProductId });
                     table.ForeignKey(
                         name: "FK_Code_Product_ProductId",
                         column: x => x.ProductId,
@@ -54,8 +51,7 @@ namespace AngelissimaApi.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     ProductId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    RegistrationDate = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                    RegistrationDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,8 +73,7 @@ namespace AngelissimaApi.Migrations
                     Price = table.Column<decimal>(nullable: false),
                     ProductId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    SaleDate = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                    SaleDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

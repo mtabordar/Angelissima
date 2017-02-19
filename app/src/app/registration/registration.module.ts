@@ -7,12 +7,14 @@ import { RegistrationService } from './shared/registration.service';
 
 import { AppRoutingModule } from '../app.routing.module';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 @NgModule({
     imports: [CommonModule
-    , FormsModule
-    , AppRoutingModule,
-    NKDatetimeModule],
+        , FormsModule
+        , AppRoutingModule
+        , NKDatetimeModule
+        , Ng2AutoCompleteModule],
     declarations: [RegistryComponent],
     providers: [RegistrationService]
 })

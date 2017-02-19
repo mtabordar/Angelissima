@@ -8,6 +8,7 @@ import { RegistrationModule } from './registration/registration.module';
 import { InventoryModule } from './inventory/Inventory.module';
 import { AlertModule } from 'ng2-bootstrap/alert';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -26,7 +27,8 @@ import { NavigationComponent } from './navigation/navigation.component';
     RegistrationModule,
     InventoryModule,
     AlertModule.forRoot(),
-    NKDatetimeModule
+    NKDatetimeModule,
+    Ng2AutoCompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

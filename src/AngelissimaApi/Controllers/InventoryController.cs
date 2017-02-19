@@ -23,7 +23,7 @@
             _logger = logger;
         }
 
-        // GET: api/product
+        // GET: api/inventory
         [HttpGet]
         public IActionResult Get()
         {
@@ -38,13 +38,19 @@
             }
         }
 
-        // GET api/product/5
+        // GET api/v/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             try
             {
-                return Ok(_mapper.Map<InventoryViewModel>(_inventoryRepository.Find(id)));
+                InventoryViewModel objInventory = _mapper.Map<InventoryViewModel>(_inventoryRepository.Find(id));
+                if (objInventory != null)
+                {
+                    objInventory.TotalQuantity = _inventoryRepository.GetTotalQuantity(objInventory.Product.ProductId);
+                }
+
+                return Ok(objInventory);
             }
             catch (Exception ex)
             {
@@ -53,7 +59,7 @@
             }
         }
 
-        // POST api/product
+        // POST api/inventory
         [HttpPost]
         public IActionResult Post([FromBody]InventoryViewModel inventory)
         {
@@ -76,7 +82,7 @@
             }
         }
 
-        // PUT api/product/5
+        // PUT api/inventory/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]InventoryViewModel product)
         {
@@ -99,7 +105,7 @@
             }
         }
 
-        // DELETE api/product/5
+        // DELETE api/inventory/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

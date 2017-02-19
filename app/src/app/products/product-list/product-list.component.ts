@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from '../shared/product';
+import { Router } from '@angular/router';
 
 import { ProductService } from '../shared/product.service';
 import { OnInit } from '@angular/core';
@@ -12,11 +13,15 @@ import { OnInit } from '@angular/core';
 
 export class ProductListComponent implements OnInit {
   products: Product[];
-  selectedProduct: Product;
+  filteredProducts: Product[];
   errorMessage: string;
   message: string;
+  public totalItems: number;
+  public currentPage: number;
+  public smallnumPages: number;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -24,18 +29,34 @@ export class ProductListComponent implements OnInit {
 
   getProducts(): void {
     this.productService.getProducts().subscribe(
-      products => this.products = products,
+      products => this.loadInfo(products),
       error => this.errorMessage = <any>error);
   }
 
-  onSelect(product: Product): void {
-    this.selectedProduct = product;
+  loadInfo(products: Product[]): void {
+    this.products = products;
+    this.totalItems = products.length;
+    this.filteredProducts = products.slice(0, 10);
   }
 
-   onDelete(id: number): void{
+  onDelete(id: number): void {
     this.productService.deleteProduct(id)
-    .subscribe(message => this.message = message,
+      .subscribe((data) => {
+        var index = this.products.indexOf(this.products.filter(p => p.productId == id)[0]);
+        this.products.splice(index, this.products.length < 10 ? this.products.length : 10);
+      },
       error => this.errorMessage = <any>error);
+  }
+
+  public setPage(pageNo: number): void {
+    this.currentPage = pageNo;
+  }
+
+  public pageChanged(event: any): void {
+    let initialIndex = ((event.page - 1) * event.itemsPerPage);
+    let finalIndex = (event.page * event.itemsPerPage);
+
+    this.filteredProducts = this.products.slice(initialIndex, finalIndex);
   }
 }
 

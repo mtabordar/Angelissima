@@ -2,5 +2,6 @@
 {
     public interface IInventoryRepository : IBaseRepository<Inventory>
     {
+        int GetTotalQuantity(int id);
     }
 }

@@ -8,7 +8,11 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:4200",
             "webRoot": "${workspaceRoot}",
-            "sourceMaps": true
+            "sourceMaps": true,
+            "skipFiles": [
+                "node_modules/**/*.js",
+                "**/*.js"
+                ]
         },
         {
             "type": "chrome",
