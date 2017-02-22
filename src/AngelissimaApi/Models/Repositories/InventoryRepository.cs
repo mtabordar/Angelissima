@@ -34,7 +34,7 @@
         public int GetTotalQuantity(int id)
         {
             return _context.Inventory.Where(i => i.ProductId == id).Sum(ti => ti.Quantity) -
-                _context.Registry.Where(r => r.ProductId == id).Sum(ti => ti.Quantity);
+                _context.Sales.Include(s => s.SaleItems).SelectMany(s => s.SaleItems).Where(si => si.ProductId == id).Sum(si => si.Quantity);
         }
 
         public void Remove(int id)

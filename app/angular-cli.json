@@ -22,9 +22,9 @@
         "../node_modules/bootstrap/dist/css/bootstrap.min.css"
       ],
       "scripts": ["../node_modules/jquery/dist/jquery.min.js",
-      "../node_modules/ng2-datetime/src/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"],
+      "../node_modules/ng2-datetime/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"],
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }

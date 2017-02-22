@@ -1,7 +1,6 @@
 import { Product } from '../../products/shared/product';
 
-export class Registry {
-  saleDate: Date;
+export class SaleItem {
   quantity: number;
   price: number;
   totalPrice: number;

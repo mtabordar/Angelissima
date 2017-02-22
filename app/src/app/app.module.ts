@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app.routing.module';
 import { ProductModule } from './products/product.module';
-import { RegistrationModule } from './registration/registration.module';
+import { SaleModule } from './sales/sale.module';
 import { InventoryModule } from './inventory/Inventory.module';
 import { AlertModule } from 'ng2-bootstrap/alert';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
@@ -24,7 +24,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     HttpModule,
     AppRoutingModule,
     ProductModule,
-    RegistrationModule,
+    SaleModule,
     InventoryModule,
     AlertModule.forRoot(),
     NKDatetimeModule,

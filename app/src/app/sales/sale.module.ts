@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { RegistryComponent } from './registry/registry.component';
-import { RegistrationService } from './shared/registration.service';
+import { SaleComponent } from './sale/sale.component';
+import { SaleService } from './shared/sale.service';
 
 import { AppRoutingModule } from '../app.routing.module';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
@@ -15,10 +15,10 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
         , AppRoutingModule
         , NKDatetimeModule
         , Ng2AutoCompleteModule],
-    declarations: [RegistryComponent],
-    providers: [RegistrationService]
+    declarations: [SaleComponent],
+    providers: [SaleService]
 })
 
-export class RegistrationModule {
+export class SaleModule {
 
 }

@@ -46,7 +46,7 @@
             services.AddDbContext<AngelContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IRegistryRepository, RegistryRepository>();
+            services.AddScoped<ISaleRepository, SaleRepository>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
         }
 

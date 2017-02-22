@@ -10,13 +10,13 @@
     using System.Collections.Generic;
 
     [Route("api/[controller]")]
-    public class RegistryController : Controller
+    public class SaleController : Controller
     {
-        private IRegistryRepository _registryRepository;
+        private ISaleRepository _registryRepository;
         private IMapper _mapper;
         private ILogger<ProductController> _logger;
 
-        public RegistryController(IRegistryRepository registryRepository, IMapper mapper, ILogger<ProductController> logger)
+        public SaleController(ISaleRepository registryRepository, IMapper mapper, ILogger<ProductController> logger)
         {
             _registryRepository = registryRepository;
             _mapper = mapper;
@@ -61,7 +61,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _registryRepository.Add(_mapper.Map<Registry>(registry));
+                    _registryRepository.Add(_mapper.Map<Sale>(registry));
                     return Created("", registry);
                 }
                 else
@@ -84,7 +84,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _registryRepository.Update(_mapper.Map<Registry>(registry));
+                    _registryRepository.Update(_mapper.Map<Sale>(registry));
                     return Created("", registry);
                 }
                 else

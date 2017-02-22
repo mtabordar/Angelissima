@@ -4,19 +4,19 @@
     using System;
     using System.Collections.Generic;
 
-    public class RegistryRepository : IRegistryRepository
+    public class SaleRepository : ISaleRepository
     {
-        public void Add(Registry item)
+        public void Add(Sale item)
         {
             throw new NotImplementedException();
         }
 
-        public Registry Find(int id)
+        public Sale Find(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Registry> GetAll()
+        public IEnumerable<Sale> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -26,7 +26,7 @@
             throw new NotImplementedException();
         }
 
-        public void Update(Registry item)
+        public void Update(Sale item)
         {
             throw new NotImplementedException();
         }

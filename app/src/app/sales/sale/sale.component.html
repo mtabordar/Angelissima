@@ -1,10 +1,10 @@
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
-        <h2>Registration</h2>
+        <h2>Sale</h2>
         <div class="row">
             <div class="form-group col-md-6">
                 <label for="barCode">Bar Code:</label>
-                <input type="text" id="barCode" name="barCode" class="form-control" [(ngModel)]="registry.product.barCode" placeholder="Bar Code"
+                <input type="text" id="barCode" name="barCode" class="form-control" [(ngModel)]="saleItem.product.barCode" placeholder="Bar Code"
                     list-formatter="value" required>
             </div>
         </div>
@@ -16,24 +16,24 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="saleDate">Sale Date:</label>
-                <datetime readonly name="saleDate" [(ngModel)]="registry.saleDate" [timepicker]="false" [datepicker]="{ autoclose: true, enableOnReadonly: true }"
+                <datetime readonly name="saleDate" [(ngModel)]="sale.saleDate" [timepicker]="false" [datepicker]="{ autoclose: true, enableOnReadonly: true }"
                     placeholder="saleDate"></datetime>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
                 <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" name="quantity" class="form-control" [(ngModel)]="registry.quantity" placeholder="Quantity"
+                <input type="number" id="quantity" name="quantity" class="form-control" [(ngModel)]="saleItem.quantity" placeholder="Quantity"
                     required>
             </div>
             <div class="form-group col-md-6">
                 <label for="price">Price:</label>
-                <input type="number" id="price" name="price" class="form-control" [(ngModel)]="registry.price" placeholder="Price" readonly>
+                <input type="number" id="price" name="price" class="form-control" [(ngModel)]="saleItem.price" placeholder="Price" readonly>
             </div>
         </div>
         <button type="button" class="btn btn-success" (click)="onAdd()">Add</button>
-        <div *ngIf="registryList.length > 0">
-            <form name="registryForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="sale.saleItems.length > 0">
+            <form name="saleForm" (ngSubmit)="onSubmit()">
                 <div class='table-responsive col-md-6"'>
                     <table class='table'>
                         <thead>
@@ -47,16 +47,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor='let registry of registryList'>
-                                <td>{{registry.product.barCode}}</td>
-                                <td>{{registry.product.name}}</td>
-                                <td>{{registry.quantity}}</td>
-                                <td>{{registry.price}}</td>
-                                <td>{{registry.totalPrice}}</td>
+                            <tr *ngFor='let saleItem of sale.saleItems'>
+                                <td>{{saleItem.product.barCode}}</td>
+                                <td>{{saleItem.product.name}}</td>
+                                <td>{{saleItem.quantity}}</td>
+                                <td>{{saleItem.price}}</td>
+                                <td>{{saleItem.totalPrice}}</td>
                                 <td>
-                                    <button (click)="onDelete(registry.product.productId)">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
+                                    <button type="button" (click)="onDelete(saleItem)">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
                                 </td>
                             </tr>
                             <tr>
@@ -85,7 +85,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="submit" ng-disabled="registryForm.$invalid" class="btn btn-success">Save</button>
+                    <button type="submit" ng-disabled="saleForm.$invalid" class="btn btn-success">Save</button>
                 </div>
             </form>
         </div>

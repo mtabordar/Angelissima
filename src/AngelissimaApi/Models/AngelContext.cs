@@ -13,7 +13,7 @@
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Inventory> Inventory { get; set; }
-        public DbSet<Registry> Registry { get; set; }
+        public DbSet<Sale> Sales { get; set; }
         public DbSet<Code> Codes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@
             modelBuilder.Entity<Product>(ProductConfiguration.ConfigureProductEntity);
             modelBuilder.Entity<Code>(CodeConfiguration.ConfigureCodeEntity);
             modelBuilder.Entity<Inventory>(InventoryConfiguration.ConfigureInventoryEntity);
-            modelBuilder.Entity<Registry>(RegistryConfiguration.ConfigureRegistryEntity);
+            modelBuilder.Entity<Sale>(SaleConfiguration.ConfigureSaleEntity);
         }
 
         public void EnsureSeedData()

@@ -39,11 +39,11 @@ export class ProductListComponent implements OnInit {
     this.filteredProducts = products.slice(0, 10);
   }
 
-  onDelete(id: number): void {
-    this.productService.deleteProduct(id)
+  onDelete(product: Product): void {
+    this.productService.deleteProduct(product.productId)
       .subscribe((data) => {
-        var index = this.products.indexOf(this.products.filter(p => p.productId == id)[0]);
-        this.products.splice(index, this.products.length < 10 ? this.products.length : 10);
+        var index = this.filteredProducts.indexOf(product);
+        this.filteredProducts.splice(index, 1);
       },
       error => this.errorMessage = <any>error);
   }
