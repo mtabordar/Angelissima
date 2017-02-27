@@ -1,6 +1,6 @@
 ﻿namespace AngelissimaApi.Models
 {
-    public class SaleItem
+    public class SaleItem : BaseItem
     {
         public int Quantity { get; set; }
         public decimal price { get; set; }

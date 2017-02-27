@@ -8,7 +8,7 @@ using AngelissimaApi.Models;
 namespace AngelissimaApi.Migrations
 {
     [DbContext(typeof(AngelContext))]
-    [Migration("20170217193450_InitialMigration")]
+    [Migration("20170226014822_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,6 +56,10 @@ namespace AngelissimaApi.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("MinimunQuantity")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0);
+
                     b.Property<string>("Name")
                         .IsRequired();
 
@@ -68,30 +72,46 @@ namespace AngelissimaApi.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("AngelissimaApi.Models.Registry", b =>
+            modelBuilder.Entity("AngelissimaApi.Models.Sale", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("Price");
+                    b.Property<DateTime>("SaleDate");
+
+                    b.Property<int>("TotalPrice");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sale");
+                });
+
+            modelBuilder.Entity("AngelissimaApi.Models.SaleItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ProductId");
 
                     b.Property<int>("Quantity");
 
-                    b.Property<DateTime>("SaleDate");
+                    b.Property<int>("SaleId");
+
+                    b.Property<decimal>("price");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Registry");
+                    b.HasIndex("SaleId");
+
+                    b.ToTable("SaleItem");
                 });
 
             modelBuilder.Entity("AngelissimaApi.Models.Code", b =>
                 {
                     b.HasOne("AngelissimaApi.Models.Product", "Product")
-                        .WithOne("BarCode")
+                        .WithOne("BarCodes")
                         .HasForeignKey("AngelissimaApi.Models.Code", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -104,11 +124,16 @@ namespace AngelissimaApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("AngelissimaApi.Models.Registry", b =>
+            modelBuilder.Entity("AngelissimaApi.Models.SaleItem", b =>
                 {
                     b.HasOne("AngelissimaApi.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AngelissimaApi.Models.Sale", "Sale")
+                        .WithMany("SaleItems")
+                        .HasForeignKey("SaleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }

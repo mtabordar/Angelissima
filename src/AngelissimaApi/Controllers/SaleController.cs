@@ -12,13 +12,13 @@
     [Route("api/[controller]")]
     public class SaleController : Controller
     {
-        private ISaleRepository _registryRepository;
+        private ISaleRepository _saleRepository;
         private IMapper _mapper;
-        private ILogger<ProductController> _logger;
+        private ILogger<SaleController> _logger;
 
-        public SaleController(ISaleRepository registryRepository, IMapper mapper, ILogger<ProductController> logger)
+        public SaleController(ISaleRepository saleRepository, IMapper mapper, ILogger<SaleController> logger)
         {
-            _registryRepository = registryRepository;
+            _saleRepository = saleRepository;
             _mapper = mapper;
             _logger = logger;
         }
@@ -29,7 +29,7 @@
         {
             try
             {
-                return Ok(_mapper.Map<IEnumerable<RegistryViewModel>>(_registryRepository.GetAll()));
+                return Ok(_mapper.Map<IEnumerable<SaleViewModel>>(_saleRepository.GetAll()));
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@
         {
             try
             {
-                return Ok(_mapper.Map<RegistryViewModel>(_registryRepository.Find(id)));
+                return Ok(_mapper.Map<SaleViewModel>(_saleRepository.Find(id)));
             }
             catch (Exception ex)
             {
@@ -55,14 +55,14 @@
 
         // POST api/registry
         [HttpPost]
-        public IActionResult Post([FromBody]RegistryViewModel registry)
+        public IActionResult Post([FromBody]SaleViewModel sale)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _registryRepository.Add(_mapper.Map<Sale>(registry));
-                    return Created("", registry);
+                    _saleRepository.Add(_mapper.Map<Sale>(sale));
+                    return Created("", sale);
                 }
                 else
                 {
@@ -78,14 +78,14 @@
 
         // PUT api/registry/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]ProductViewModel registry)
+        public IActionResult Put(int id, [FromBody]SaleViewModel sale)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _registryRepository.Update(_mapper.Map<Sale>(registry));
-                    return Created("", registry);
+                    _saleRepository.Update(_mapper.Map<Sale>(sale));
+                    return Created("", sale);
                 }
                 else
                 {
@@ -105,7 +105,7 @@
         {
             try
             {
-                _registryRepository.Remove(id);
+                _saleRepository.Remove(id);
                 return Ok();
             }
             catch (Exception ex)

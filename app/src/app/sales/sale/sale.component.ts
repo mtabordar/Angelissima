@@ -23,7 +23,6 @@ export class SaleComponent implements OnInit {
   private message: string;
   private productList: Product[];
   private autocompleteList: Item[];
-  private selectedproductName: string;
   private totalPrice: number = 0;
   private totalCash: number = 0;
 
@@ -32,16 +31,10 @@ export class SaleComponent implements OnInit {
     , private route: ActivatedRoute
     , private router: Router
     , private location: Location) {
-
   }
 
   ngOnInit(): void {
-    this.sale = new Sale;
-    this.sale.saleDate = new Date();
-    this.sale.saleItems = new Array<SaleItem>();
-    this.saleItem = new SaleItem;
-    this.saleItem.product = new Product;
-
+    this.clearForm();
     this.loadInfo();
   }
 
@@ -88,7 +81,7 @@ export class SaleComponent implements OnInit {
       }
       this.saleItem = new SaleItem;
       this.saleItem.product = new Product;
-      this.selectedproductName = "";
+      this.saleItem.product.barCodes = new BarCode;
     }
   }
 
@@ -99,21 +92,32 @@ export class SaleComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // this.insertRegistry();
-
+    this.insertSale();
   }
 
   clearForm(): void {
     this.sale = new Sale;
+    this.sale.saleDate = new Date();
     this.sale.saleItems = new Array<SaleItem>();
     this.saleItem = new SaleItem;
     this.saleItem.product = new Product;
+    this.saleItem.product.barCodes = new BarCode;
   }
 
   onValueChanged(event: any): void {
-    let item: Product = this.productList.filter(p => p.productId == event.id)[0]
-    if (item) {
-      this.saleItem.product = item;
+    let product: Product = this.productList.find(p => p.productId == event.id)
+    this.mapProduct(product);
+  }
+
+  onBarcodeSearch(): void {
+    let product: Product = this.productList.find(p => p.barCodes.barCode == this.saleItem.product.barCodes.barCode)
+
+    this.mapProduct(product);
+  }
+
+  mapProduct(product: Product): void {
+    if (product) {
+      this.saleItem.product = product;
       this.saleItem.productId = this.saleItem.product.productId;
       this.saleItem.price = this.saleItem.product.salePrice;
       this.saleItem.quantity = 1;

@@ -9,7 +9,6 @@
         {
             entityBuilder.ToTable("Sale").HasKey(p => p.Id);
             entityBuilder.HasKey(r => r.Id);
-            entityBuilder.Property(r => r.SaleItems).IsRequired();
             entityBuilder.Property(r => r.SaleDate).IsRequired();
             entityBuilder.Property(r => r.TotalPrice).IsRequired();
         }

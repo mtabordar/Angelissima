@@ -29,6 +29,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.product = new Product;
+    this.product.barCodes = new BarCode;
+    this.product.minimunQuantity = 1;
 
     this.sub = this.route.params.subscribe(params => {
       let productId: number = +params['id'];

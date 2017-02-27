@@ -5,6 +5,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { Inventory } from '../shared/inventory';
 import { Product } from '../../products/shared/product';
+import { BarCode } from '../../barcodes/shared/barcode';
 
 import { InventoryService } from '../shared/inventory.service';
 import { ProductService } from '../../products/shared/product.service';
@@ -31,6 +32,7 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void {
     this.inventory = new Inventory;
     this.product = new Product;
+    this.product.barCodes = new BarCode;
     this.inventory.registrationDate = new Date();
 
     this.sub = this.route.params.subscribe(params => {

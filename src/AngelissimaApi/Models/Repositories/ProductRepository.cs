@@ -22,12 +22,12 @@
 
         public Product Find(int id)
         {
-            return _context.Products.Include(c => c.BarCode).FirstOrDefault(p => p.Id == id);
+            return _context.Products.Include(c => c.BarCodes).FirstOrDefault(p => p.Id == id);
         }
 
         public IEnumerable<Product> GetAll()
         {
-            return _context.Products.Include(c => c.BarCode).ToList();
+            return _context.Products.Include(c => c.BarCodes).ToList();
         }
 
         public void Remove(int id)
@@ -38,13 +38,17 @@
 
         public void Update(Product item)
         {
-            Code cod = _context.Codes.FirstOrDefault(c => c.ProductId == item.Id);
-            _context.Codes.Remove(cod);
+            IEnumerable<Code> codes = _context.Codes.Where(c => c.ProductId == item.Id);
 
-            _context.Codes.Add(item.BarCode);
+            foreach(Code code in codes)
+            {
+                _context.Codes.Remove(code);
+            }
 
+            _context.SaveChanges();
+
+            _context.Codes.Add(item.BarCodes);
             _context.Products.Update(item);
-
             _context.SaveChanges();
         }
     }

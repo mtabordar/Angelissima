@@ -6,5 +6,6 @@ export class Product {
   description: string;
   unitPrice: number;
   salePrice: number;
-  barCode: BarCode;
+  minimunQuantity: number;
+  barCodes: BarCode;
 }
