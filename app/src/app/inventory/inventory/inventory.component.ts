@@ -17,7 +17,6 @@ import { ProductService } from '../../products/shared/product.service';
 
 export class InventoryComponent implements OnInit {
   inventory: Inventory;
-  product: Product;
   errorMessage: string;
   message: string;
   private sub: any;
@@ -31,8 +30,8 @@ export class InventoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.inventory = new Inventory;
-    this.product = new Product;
-    this.product.barCodes = new BarCode;
+    this.inventory.product = new Product;
+    this.inventory.product.barCodes = new BarCode;
     this.inventory.registrationDate = new Date();
 
     this.sub = this.route.params.subscribe(params => {
@@ -56,7 +55,7 @@ export class InventoryComponent implements OnInit {
   getProduct(id: number): void {
     this.productService.getProduct(id)
       .subscribe(
-      product => this.product = product,
+      product => this.inventory.product = product,
       error => this.errorMessage = <any>error);
   }
 

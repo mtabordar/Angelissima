@@ -22,6 +22,7 @@
             modelBuilder.Entity<Code>(CodeConfiguration.ConfigureCodeEntity);
             modelBuilder.Entity<Inventory>(InventoryConfiguration.ConfigureInventoryEntity);
             modelBuilder.Entity<Sale>(SaleConfiguration.ConfigureSaleEntity);
+            modelBuilder.Entity<SaleItem>(SaleConfiguration.ConfigureSaleItemEntity);
         }
 
         public void EnsureSeedData()

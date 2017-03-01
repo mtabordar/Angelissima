@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="col-md-4 col-md-offset-4">
-        <product-detail [product]="product"></product-detail>
+        <product-detail [product]="inventory.product"></product-detail>
         <label for="totalQuantity">Total Quantity:</label>
         <span id="totalQuantity" name="totalQuantity">{{inventory.totalQuantity}}</span>
         <form name="inventoryForm" (ngSubmit)="onSubmit()">

@@ -87,20 +87,15 @@ namespace AngelissimaApi.Migrations
 
             modelBuilder.Entity("AngelissimaApi.Models.SaleItem", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
                     b.Property<int>("ProductId");
-
-                    b.Property<int>("Quantity");
 
                     b.Property<int>("SaleId");
 
+                    b.Property<int>("Quantity");
+
                     b.Property<decimal>("price");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
+                    b.HasKey("ProductId", "SaleId");
 
                     b.HasIndex("SaleId");
 

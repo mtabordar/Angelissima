@@ -18,6 +18,11 @@
             CreateMap<Code, BarCodeViewModel>().ReverseMap();
 
             CreateMap<InventoryViewModel, Inventory>().ReverseMap();
+
+            CreateMap<SaleViewModel, Sale>()
+                .ForMember(sale => sale.UpdatedAt, options => options.Ignore());
+
+            CreateMap<SaleItemViewModel, SaleItem>().ReverseMap();
         }
     }
 }

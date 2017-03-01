@@ -23,7 +23,6 @@ export class SaleComponent implements OnInit {
   private message: string;
   private productList: Product[];
   private autocompleteList: Item[];
-  private totalPrice: number = 0;
   private totalCash: number = 0;
 
   constructor(private saleService: SaleService
@@ -68,9 +67,9 @@ export class SaleComponent implements OnInit {
   }
 
   onAdd(): void {
-    if (this.saleItem) {
+    if (this.saleItem.productId) {
       this.saleItem.totalPrice = this.saleItem.price * this.saleItem.quantity;
-      this.totalPrice += this.saleItem.totalPrice;
+      this.sale.totalPrice += this.saleItem.totalPrice;
       let reg = this.sale.saleItems.find(r => r.productId == this.saleItem.productId);
       if (reg) {
         reg.quantity += this.saleItem.quantity;
@@ -88,7 +87,7 @@ export class SaleComponent implements OnInit {
   onDelete(saleItem: SaleItem): void {
     let index = this.sale.saleItems.indexOf(saleItem);
     this.sale.saleItems.splice(index, 1);
-    this.totalPrice -= saleItem.totalPrice;
+    this.sale.totalPrice -= saleItem.totalPrice;
   }
 
   onSubmit(): void {
@@ -97,6 +96,7 @@ export class SaleComponent implements OnInit {
 
   clearForm(): void {
     this.sale = new Sale;
+    this.sale.totalPrice = 0;
     this.sale.saleDate = new Date();
     this.sale.saleItems = new Array<SaleItem>();
     this.saleItem = new SaleItem;

@@ -8,7 +8,7 @@ using AngelissimaApi.Models;
 namespace AngelissimaApi.Migrations
 {
     [DbContext(typeof(AngelContext))]
-    [Migration("20170226014822_InitialMigration")]
+    [Migration("20170228040043_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,20 +88,15 @@ namespace AngelissimaApi.Migrations
 
             modelBuilder.Entity("AngelissimaApi.Models.SaleItem", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
                     b.Property<int>("ProductId");
-
-                    b.Property<int>("Quantity");
 
                     b.Property<int>("SaleId");
 
+                    b.Property<int>("Quantity");
+
                     b.Property<decimal>("price");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
+                    b.HasKey("ProductId", "SaleId");
 
                     b.HasIndex("SaleId");
 

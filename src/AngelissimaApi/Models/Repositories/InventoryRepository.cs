@@ -18,12 +18,17 @@
         public void Add(Inventory item)
         {
             _context.Inventory.Add(item);
+            _context.Entry(item.Product).State = EntityState.Unchanged;
+            _context.Entry(item.Product.BarCodes).State = EntityState.Unchanged;
             _context.SaveChanges();
         }
 
         public Inventory Find(int id)
         {
-            return _context.Inventory.Include(i => i.Product).Where(i => i.ProductId == id).FirstOrDefault();            
+            return _context.Inventory
+                .Include(i => i.Product)
+                .ThenInclude(p => p.BarCodes)
+                .Where(i => i.ProductId == id).FirstOrDefault();            
         }
 
         public IEnumerable<Inventory> GetAll()

@@ -1,14 +1,29 @@
 ﻿namespace AngelissimaApi.Models.Repositories
 {
     using Interfaces;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
 
     public class SaleRepository : ISaleRepository
     {
-        public void Add(Sale item)
+        private AngelContext _context;
+
+        public SaleRepository(AngelContext context)
         {
-            throw new NotImplementedException();
+            this._context = context;
+        }
+
+        public void Add(Sale sale)
+        {
+            _context.Sales.Add(sale);
+            foreach (SaleItem saleItem in sale.SaleItems)
+            {
+                _context.Entry(saleItem.Product).State = EntityState.Unchanged;
+                _context.Entry(saleItem.Product.BarCodes).State = EntityState.Unchanged;
+            }
+
+            _context.SaveChanges();
         }
 
         public Sale Find(int id)

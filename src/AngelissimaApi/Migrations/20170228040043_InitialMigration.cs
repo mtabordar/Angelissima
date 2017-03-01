@@ -83,16 +83,14 @@ namespace AngelissimaApi.Migrations
                 name: "SaleItem",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     ProductId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
                     SaleId = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
                     price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SaleItem", x => x.Id);
+                    table.PrimaryKey("PK_SaleItem", x => new { x.ProductId, x.SaleId });
                     table.ForeignKey(
                         name: "FK_SaleItem_Product_ProductId",
                         column: x => x.ProductId,
@@ -116,11 +114,6 @@ namespace AngelissimaApi.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Inventory_ProductId",
                 table: "Inventory",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SaleItem_ProductId",
-                table: "SaleItem",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
