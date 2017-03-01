@@ -8,13 +8,15 @@ import { SaleService } from './shared/sale.service';
 import { AppRoutingModule } from '../app.routing.module';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { TranslateModule } from 'ng2-translate';
 
 @NgModule({
     imports: [CommonModule
         , FormsModule
         , AppRoutingModule
         , NKDatetimeModule
-        , Ng2AutoCompleteModule],
+        , Ng2AutoCompleteModule,
+        TranslateModule],
     declarations: [SaleComponent],
     providers: [SaleService]
 })

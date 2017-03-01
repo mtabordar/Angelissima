@@ -1,0 +1,19 @@
+{
+    "BARCODE": "Código de barras",
+    "NAME": "Nombre",
+    "QUANTITY": "Cantidad",
+    "PRICE": "Precio",
+    "TOTALPRICE": "Precio total",
+    "TOTAL": "Total",
+    "ACTIONS": {
+        "ADD": "Agregar",
+        "SAVE": "Guardar",
+        "UPDATE": "Actualizar",
+        "DELETE": "Eliminar"
+    },
+    "SALE": {
+        "SALEDATE": "Fecha de venta",
+        "TOTALCASH": "Dinero entregado",
+        "RETURNCASH": "Dinero a devolver"
+    }
+}

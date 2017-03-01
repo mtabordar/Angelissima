@@ -3,47 +3,47 @@
         <h2>Sale</h2>
         <div class="row">
             <div class="form-group col-md-6">
-                <label for="barCode">Bar Code:</label>
+                <label for="barCode">{{ 'BARCODE' | translate }}:</label>
                 <input type="text" id="barCode" name="barCode" class="form-control" [(ngModel)]="saleItem.product.barCodes.barCode" placeholder="Bar Code"
                     list-formatter="value" required (keyup.enter)="onBarcodeSearch()">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-8">
-                <label for="name">Name:</label>
+                <label for="name">{{ 'NAME' | translate }}:</label>
                 <input class="form-control" auto-complete [(ngModel)]="saleItem.product.name" (valueChanged)="onValueChanged($event)" [source]="autocompleteList"
                     placeholder="name" required/>
             </div>
             <div class="form-group col-md-4">
-                <label for="saleDate">Sale Date:</label>
+                <label for="saleDate">{{ 'SALE.SALEDATE' | translate }}:</label>
                 <datetime readonly name="saleDate" [(ngModel)]="sale.saleDate" [timepicker]="false" [datepicker]="{ autoclose: true, enableOnReadonly: true }"
                     placeholder="saleDate"></datetime>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                <label for="quantity">Quantity:</label>
+                <label for="quantity">{{ 'QUANTITY' | translate }}:</label>
                 <input type="number" id="quantity" name="quantity" class="form-control" [(ngModel)]="saleItem.quantity" placeholder="Quantity"
                     required>
             </div>
             <div class="form-group col-md-6">
-                <label for="price">Price:</label>
+                <label for="price">{{ 'PRICE' | translate }}:</label>
                 <input type="number" id="price" name="price" class="form-control" [(ngModel)]="saleItem.price" placeholder="Price" readonly>
             </div>
         </div>
-        <button type="button" class="btn btn-success" (click)="onAdd()">Add</button>
+        <button type="button" class="btn btn-success" (click)="onAdd()">{{ 'ACTIONS.ADD' | translate }}</button>
         <div *ngIf="sale.saleItems.length > 0">
             <form name="saleForm" (ngSubmit)="onSubmit()">
                 <div class='table-responsive col-md-6"'>
                     <table class='table'>
                         <thead>
                             <tr>
-                                <th>Bar Code</th>
-                                <th>Name</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Total price</th>
-                                <th>Delete</th>
+                                <th>{{ 'BARCODE' | translate }}</th>
+                                <th>{{ 'NAME' | translate }}</th>
+                                <th>{{ 'QUANTITY' | translate }}</th>
+                                <th>{{ 'PRICE' | translate }}</th>
+                                <th>{{ 'TOTALPRICE' | translate }}</th>
+                                <th>{{ 'ACTIONS.DELETE' | translate }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +61,7 @@
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <h3>Totals:</h3>
+                                    <h3>{{ 'TOTAL' | translate }}:</h3>
                                 </td>
                                 <td colspan="2">
                                     <h3>{{sale.totalPrice}}</h3>
@@ -69,15 +69,15 @@
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <h3>Total Cash:</h3>
+                                    <h3>{{ 'SALE.TOTALCASH' | translate }}:</h3>
                                 </td>
                                 <td colspan="2">
                                     <input type="number" id="totalCash" name="totalCash" class="form-control" [(ngModel)]="totalCash" placeholder="Total cash">
                                 </td>
                             </tr>
-                            <tr *ngIf="totalCash > totalPrice">
+                            <tr *ngIf="totalCash > sale.totalPrice">
                                 <td colspan="4">
-                                    <h3>Return Cash:</h3>
+                                    <h3>{{ 'SALE.RETURNCASH' | translate }}:</h3>
                                 </td>
                                 <td colspan="2">
                                     <h3>{{totalCash-sale.totalPrice}}</h3>
@@ -85,7 +85,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="submit" ng-disabled="saleForm.$invalid" class="btn btn-success">Save</button>
+                    <button type="submit" ng-disabled="saleForm.$invalid" class="btn btn-success">{{ 'ACTIONS.SAVE' | translate }}</button>
                 </div>
             </form>
         </div>
