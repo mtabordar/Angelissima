@@ -12,9 +12,10 @@ import { PaginationModule } from 'ng2-bootstrap/pagination';
 import { ProductService } from './shared/product.service';
 
 import { AppRoutingModule } from '../app.routing.module';
+import { TranslateModule } from 'ng2-translate';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, AppRoutingModule, ModalModule.forRoot(), PaginationModule.forRoot()],
+    imports: [CommonModule, FormsModule, AppRoutingModule, ModalModule.forRoot(), PaginationModule.forRoot(), TranslateModule],
     declarations: [ProductListComponent, ProductComponent, BarCodeComponent],
     providers: [ProductService]
 })

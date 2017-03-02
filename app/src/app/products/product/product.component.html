@@ -1,38 +1,38 @@
 <div class="container">
     <form name="productForm" (ngSubmit)="onSubmit()">
         <div class="col-md-6 col-md-offset-3">
-            <h2>Product</h2>
+            <h2>{{ 'PRODUCT.PRODUCT' | translate }}</h2>
             <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" class="form-control" [(ngModel)]="product.name" placeholder="name" required>
+                <label for="name">{{ 'NAME' | translate }}:</label>
+                <input type="text" id="name" name="name" class="form-control" [(ngModel)]="product.name" placeholder="{{ 'NAME' | translate }}" required>
             </div>
             <div class="form-group">
-                <label for="description">Description:</label>
-                <input type="text" id="description" name="description" class="form-control" [(ngModel)]="product.description" placeholder="Description"
+                <label for="description">{{ 'PRODUCT.DESCRIPTION' | translate }}:</label>
+                <input type="text" id="description" name="description" class="form-control" [(ngModel)]="product.description" placeholder="{{ 'PRODUCT.DESCRIPTION' | translate }}"
                     required>
             </div>
             <div class="form-group">
-                <label for="unitPrice">Unit Price:</label>
-                <input type="number" step="1" id="unitPrice" name="unitPrice" class="form-control" [(ngModel)]="product.unitPrice" placeholder="Unit Price"
+                <label for="unitPrice">{{ 'PRODUCT.UNITPRICE' | translate }}:</label>
+                <input type="number" step="1" id="unitPrice" name="unitPrice" class="form-control" [(ngModel)]="product.unitPrice" placeholder="{{ 'PRODUCT.UNITPRICE' | translate }}"
                     (blur)="calculateSalePrice()" required>
             </div>
             <div class="form-group">
-                <label for="salePrice">Sale Price:</label>
-                <input type="number" step="1" id="salePrice" name="salePrice" class="form-control" [(ngModel)]="product.salePrice" placeholder="Sale Price"
+                <label for="salePrice">{{ 'PRODUCT.SALEPRICE' | translate }}:</label>
+                <input type="number" step="1" id="salePrice" name="salePrice" class="form-control" [(ngModel)]="product.salePrice" placeholder="{{ 'PRODUCT.SALEPRICE' | translate }}"
                     required>
             </div>
             <div class="form-group">
-                <label for="minimunQuantity">Minimun Quantity:</label>
-                <input type="number" step="1" id="minimunQuantity" name="minimunQuantity" class="form-control" [(ngModel)]="product.minimunQuantity" placeholder="Minimun Quantity">
+                <label for="minimunQuantity">{{ 'PRODUCT.MINIMUNQUANTITY' | translate }}:</label>
+                <input type="number" step="1" id="minimunQuantity" name="minimunQuantity" class="form-control" [(ngModel)]="product.minimunQuantity" placeholder="{{ 'PRODUCT.MINIMUNQUANTITTY' | translate }}">
             </div>
             <div class="form-group">
-                <label for="salePrice">Bar Code:</label>
-                <input type="text" id="barCode" name="barCode" class="form-control" [(ngModel)]="product.barCodes.barCode" placeholder="Bar Code"
+                <label for="salePrice">{{ 'BARCODE' | translate }}:</label>
+                <input type="text" id="barCode" name="barCode" class="form-control" [(ngModel)]="product.barCodes.barCode" placeholder="{{ 'BARCODE' | translate }}"
                     required>
             </div>
             
-            <button class="btn" type="button" (click)="goBack()">Back</button>
-            <button type="submit" ng-disabled="productForm.$invalid" class="btn btn-success">Save</button>
+            <button class="btn" type="button" (click)="goBack()">{{ 'ACTIONS.BACK' | translate }}</button>
+            <button type="submit" ng-disabled="productForm.$invalid" class="btn btn-success">{{ 'ACTIONS.SAVE' | translate }}</button>
         </div>
     </form>
 </div>

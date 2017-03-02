@@ -1,5 +1,36 @@
 {
-    "SALE":{
-        "BARCODE": "Bar code"
+    "BARCODE": "Bar code",
+    "NAME": "Name",    
+    "QUANTITY": "Quantity",
+    "PRICE": "Price",
+    "TOTALPRICE": "Total Price",
+    "TOTAL": "Total",
+    "ACTIONS": {
+        "ADD": "Add",
+        "SAVE": "Save",
+        "UPDATE": "Update",
+        "DELETE": "Delete",
+        "BACK": "Back",
+        "EDIT": "Edit",
+        "SEARCH": "Search"
+    },
+    "SALE": {
+        "SALE": "Sale",
+        "SALEDATE": "Sale date",
+        "TOTALCASH": "Total Cash",
+        "RETURNCASH": "Return cash"
+    },
+    "PRODUCT":{
+        "PRODUCT":"Product",
+        "PRODUCTS":"Products",
+        "SALEPRICE": "Sale price",
+        "UNITPRICE": "Unit Price",
+        "DESCRIPTION":"Descripcion",
+        "MINIMUNQUANTITY": "Minimun Quantity"
+    },
+    "INVENTORY": {
+        "INVENTORY": "Inventory",
+        "ARRIVEDATE": "Arrive date",
+        "TOTALQUANTITY": "Total quantity"
     }
 }

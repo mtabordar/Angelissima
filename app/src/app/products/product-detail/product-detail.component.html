@@ -1,20 +1,20 @@
 <div *ngIf="product" class="container-fluid">
     <div>
-        <h2>Product</h2>
+        <h2>{{ 'PRODUCT.PRODUCT' | translate }}</h2>
         <div class="row">
-            <label for="name">Name:</label>
+            <label for="name">{{ 'NAME' | translate }}:</label>
             <span id="name" name="name">{{product.name}}</span>
         </div>
         <div class="row">
-            <label for="description">Description:</label>
+            <label for="description">{{ 'PRODUCT.DESCRIPTION' | translate }}:</label>
             <span id="description" name="description" >{{product.description}}</span>
         </div>       
         <div class="row">
-            <label for="salePrice">Sale Price:</label>
+            <label for="salePrice">{{ 'PRODUCT.SALEPRICE' | translate }}:</label>
             <span id="salePrice" name="salePrice">{{product.salePrice}}</span>
         </div>
         <div class="row">
-            <label for="salePrice">Bar Code:</label>
+            <label for="salePrice">{{ 'BARCODE' | translate }}:</label>
             <span id="barCode" name="barCode">{{product.barCodes.barCode}}</span>
         </div>
     </div>

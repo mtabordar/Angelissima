@@ -1,6 +1,6 @@
 {
     "BARCODE": "Código de barras",
-    "NAME": "Nombre",
+    "NAME": "Nombre",    
     "QUANTITY": "Cantidad",
     "PRICE": "Precio",
     "TOTALPRICE": "Precio total",
@@ -9,11 +9,28 @@
         "ADD": "Agregar",
         "SAVE": "Guardar",
         "UPDATE": "Actualizar",
-        "DELETE": "Eliminar"
+        "DELETE": "Eliminar",
+        "BACK": "Atras",
+        "EDIT": "Editar",
+        "SEARCH": "Buscar"
     },
     "SALE": {
+        "SALE": "Venta",
         "SALEDATE": "Fecha de venta",
         "TOTALCASH": "Dinero entregado",
         "RETURNCASH": "Dinero a devolver"
+    },
+    "PRODUCT":{
+        "PRODUCT":"Producto",
+        "PRODUCTS":"Productos",
+        "SALEPRICE": "Precio de Venta",
+        "UNITPRICE": "Precio unitario",
+        "DESCRIPTION":"Descripción",
+        "MINIMUNQUANTITY": "Cantidad minima"
+    },
+    "INVENTORY": {
+        "INVENTORY": "Inventario",
+        "ARRIVEDATE": "Fecha de llegada",
+        "TOTALQUANTITY": "Cantidad total"
     }
 }

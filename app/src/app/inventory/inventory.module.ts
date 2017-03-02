@@ -8,11 +8,12 @@ import { InventoryService } from './shared/inventory.service';
 import { ProductDetailComponent } from '../products/product-detail/product-detail.component';
 
 import { AppRoutingModule } from '../app.routing.module';
+import { TranslateModule } from 'ng2-translate';
 
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, AppRoutingModule, NKDatetimeModule],
+    imports: [CommonModule, FormsModule, AppRoutingModule, NKDatetimeModule, TranslateModule],
     declarations: [InventoryComponent, ProductDetailComponent],
     providers: [InventoryService]
 })

@@ -1,9 +1,9 @@
 <div class="col-md-8 col-md-offset-2">
     <div class='panel panel-primary'>
         <div class='panel-heading'>
-            Products
+            {{ 'PRODUCT.PRODUCTS' | translate }}
         </div>
-        <button [routerLink]="['/product']">
+        <button class="btn btn-default" [routerLink]="['/product']">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
 
@@ -13,11 +13,11 @@
                     <table class='table'>
                         <thead>
                             <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Edit</th>
-                                <th>Inventory</th>
-                                <th>Delete</th>
+                                <th>{{ 'PRODUCT.PRODUCT' | translate }}</th>
+                                <th>{{ 'PRICE' | translate }}</th>
+                                <th>{{ 'ACTIONS.EDIT' | translate }}</th>
+                                <th>{{ 'INVENTORY.INVENTORY' | translate }}</th>
+                                <th>{{ 'ACTIONS.DELETE' | translate }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,17 +25,17 @@
                                 <td>{{product.name}}</td>
                                 <td>{{product.salePrice}}</td>
                                 <td>
-                                    <button [routerLink]="['/product', product.productId, 'edit']">
+                                    <button class="btn btn-default" [routerLink]="['/product', product.productId, 'edit']">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </button>
                                 </td>
                                 <td>
-                                    <button [routerLink]="['/inventory', product.productId]">
+                                    <button class="btn btn-default" [routerLink]="['/inventory', product.productId]">
                                     <span class="glyphicon glyphicon-th-list"></span>
                                 </button>
                                 </td>
                                 <td>
-                                    <button (click)="onDelete(product)">
+                                    <button class="btn btn-default" (click)="onDelete(product)">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>
                                 </td>
