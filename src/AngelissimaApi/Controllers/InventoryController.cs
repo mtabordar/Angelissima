@@ -15,10 +15,12 @@
         private IInventoryRepository _inventoryRepository;
         private IMapper _mapper;
         private ILogger<InventoryController> _logger;
+        private ISaleRepository _saleRepository;
 
-        public InventoryController(IInventoryRepository inventoryRepository, IMapper mapper, ILogger<InventoryController> logger)
+        public InventoryController(IInventoryRepository inventoryRepository, ISaleRepository saleRepository, IMapper mapper, ILogger<InventoryController> logger)
         {
             _inventoryRepository = inventoryRepository;
+            _saleRepository = saleRepository;
             _mapper = mapper;
             _logger = logger;
         }
@@ -47,7 +49,7 @@
                 InventoryViewModel objInventory = _mapper.Map<InventoryViewModel>(_inventoryRepository.Find(id));
                 if (objInventory != null)
                 {
-                    objInventory.TotalQuantity = _inventoryRepository.GetTotalQuantity(objInventory.Product.ProductId);
+                    objInventory.TotalQuantity = _inventoryRepository.GetTotalInventoryProductQuantity(id) - _saleRepository.GetTotalSalesProductQuantity(id);
                 }
 
                 return Ok(objInventory);

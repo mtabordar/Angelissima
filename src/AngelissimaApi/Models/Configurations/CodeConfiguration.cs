@@ -7,7 +7,9 @@
     {
         public static void ConfigureCodeEntity(EntityTypeBuilder<Code> entityBuilder)
         {
-            entityBuilder.ToTable("Code").HasKey(c => new { c.ProductId, c.BarCode });                
+            entityBuilder.ToTable("code").HasKey(c => new { c.ProductId, c.BarCode });
+            entityBuilder.Property(c => c.BarCode).HasColumnName("barcode");
+            entityBuilder.Property(c => c.ProductId).HasColumnName("productid");
         }
     }
 }

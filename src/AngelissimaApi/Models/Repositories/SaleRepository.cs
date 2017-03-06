@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class SaleRepository : ISaleRepository
     {
@@ -34,6 +35,11 @@
         public IEnumerable<Sale> GetAll()
         {
             throw new NotImplementedException();
+        }
+
+        public int GetTotalSalesProductQuantity(int productId)
+        {
+            return _context.Sales.Include(s => s.SaleItems).SelectMany(s => s.SaleItems).Where(si => si.ProductId == productId).Sum(si => si.Quantity);
         }
 
         public void Remove(int id)

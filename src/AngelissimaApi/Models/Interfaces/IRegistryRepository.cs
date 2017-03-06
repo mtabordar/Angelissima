@@ -2,5 +2,6 @@
 {
     public interface ISaleRepository : IBaseRepository<Sale>
     {
+        int GetTotalSalesProductQuantity(int productId);
     }
 }

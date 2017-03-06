@@ -8,7 +8,7 @@ using AngelissimaApi.Models;
 namespace AngelissimaApi.Migrations
 {
     [DbContext(typeof(AngelContext))]
-    [Migration("20170228040043_InitialMigration")]
+    [Migration("20170306021811_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,88 +19,107 @@ namespace AngelissimaApi.Migrations
 
             modelBuilder.Entity("AngelissimaApi.Models.Code", b =>
                 {
-                    b.Property<int>("ProductId");
+                    b.Property<int>("ProductId")
+                        .HasColumnName("productid");
 
-                    b.Property<string>("BarCode");
+                    b.Property<string>("BarCode")
+                        .HasColumnName("barcode");
 
                     b.HasKey("ProductId", "BarCode");
 
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("Code");
+                    b.ToTable("code");
                 });
 
             modelBuilder.Entity("AngelissimaApi.Models.Inventory", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
 
-                    b.Property<int>("ProductId");
+                    b.Property<int>("ProductId")
+                        .HasColumnName("productid");
 
-                    b.Property<int>("Quantity");
+                    b.Property<int>("Quantity")
+                        .HasColumnName("quantity");
 
-                    b.Property<DateTime>("RegistrationDate");
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnName("registrationdate");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Inventory");
+                    b.ToTable("inventory");
                 });
 
             modelBuilder.Entity("AngelissimaApi.Models.Product", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnName("description");
 
                     b.Property<int>("MinimunQuantity")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("minimunquantity")
                         .HasDefaultValue(0);
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnName("name");
 
-                    b.Property<decimal>("SalePrice");
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnName("saleprice");
 
-                    b.Property<decimal>("UnitPrice");
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnName("unitprice");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product");
+                    b.ToTable("product");
                 });
 
             modelBuilder.Entity("AngelissimaApi.Models.Sale", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
 
-                    b.Property<DateTime>("SaleDate");
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnName("saledate");
 
-                    b.Property<int>("TotalPrice");
+                    b.Property<int>("TotalPrice")
+                        .HasColumnName("totalprice");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sale");
+                    b.ToTable("sale");
                 });
 
             modelBuilder.Entity("AngelissimaApi.Models.SaleItem", b =>
                 {
-                    b.Property<int>("ProductId");
+                    b.Property<int>("ProductId")
+                        .HasColumnName("productid");
 
-                    b.Property<int>("SaleId");
+                    b.Property<int>("SaleId")
+                        .HasColumnName("saleid");
 
-                    b.Property<int>("Quantity");
+                    b.Property<int>("Quantity")
+                        .HasColumnName("quantity");
 
-                    b.Property<decimal>("price");
+                    b.Property<decimal>("price")
+                        .HasColumnName("price");
 
                     b.HasKey("ProductId", "SaleId");
 
                     b.HasIndex("SaleId");
 
-                    b.ToTable("SaleItem");
+                    b.ToTable("saleitem");
                 });
 
             modelBuilder.Entity("AngelissimaApi.Models.Code", b =>

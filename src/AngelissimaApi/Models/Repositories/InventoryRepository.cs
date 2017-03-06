@@ -36,10 +36,9 @@
             throw new NotImplementedException();
         }
 
-        public int GetTotalQuantity(int id)
+        public int GetTotalInventoryProductQuantity(int productId)
         {
-            return _context.Inventory.Where(i => i.ProductId == id).Sum(ti => ti.Quantity) -
-                _context.Sales.Include(s => s.SaleItems).SelectMany(s => s.SaleItems).Where(si => si.ProductId == id).Sum(si => si.Quantity);
+            return _context.Inventory.Where(i => i.ProductId == productId).Sum(ti => ti.Quantity);                
         }
 
         public void Remove(int id)
