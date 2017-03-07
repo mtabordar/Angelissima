@@ -28,7 +28,7 @@
             return _context.Inventory
                 .Include(i => i.Product)
                 .ThenInclude(p => p.BarCodes)
-                .Where(i => i.ProductId == id).FirstOrDefault();            
+                .FirstOrDefault(i => i.ProductId == id);            
         }
 
         public IEnumerable<Inventory> GetAll()

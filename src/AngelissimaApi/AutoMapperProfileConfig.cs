@@ -27,6 +27,8 @@
                 .ForMember(sale => sale.UpdatedAt, options => options.Ignore())
                 .ForMember(sale => sale.Id, options => options.Ignore());
 
+            CreateMap<Sale, SaleViewModel>();
+
             CreateMap<SaleItemViewModel, SaleItem>()
                 .ForMember(si => si.SaleId, options => options.Ignore());
 

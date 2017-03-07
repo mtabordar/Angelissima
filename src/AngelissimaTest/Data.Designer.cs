@@ -81,5 +81,16 @@ namespace AngelissimaTest {
                 return ResourceManager.GetString("Products", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to  [{&quot;totalprice&quot;:8000,&quot;id&quot;:1,&quot;saleitems&quot;:[{&quot;price&quot;:2500,&quot;quantity&quot;:2,&quot;saleid&quot;:1,&quot;productid&quot;:1}, {&quot;price&quot;:3000,&quot;quantity&quot;:1,&quot;saleid&quot;:1,&quot;productid&quot;:2}],&quot;saledate&quot;:&quot;2017-03-06T19:25:41.279925&quot;}
+        ///,{&quot;totalprice&quot;:14000,&quot;id&quot;:2,&quot;saleitems&quot;:[{&quot;price&quot;:3000,&quot;quantity&quot;:2,&quot;saleid&quot;:2,&quot;productid&quot;:2}, {&quot;price&quot;:8000,&quot;quantity&quot;:1,&quot;saleid&quot;:2,&quot;productid&quot;:3}],&quot;saledate&quot;:&quot;2017-03-06T19:25:41.30494&quot;}
+        ///,{&quot;totalprice&quot;:5500,&quot;id&quot;:3,&quot;saleitems&quot;:[{&quot;price&quot;:5500,&quot;quantity&quot;:1,&quot;saleid&quot;:3,&quot;productid&quot;:4}],&quot;saledate&quot;:&quot;2017-03-06T19:25:41.30494&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Sales {
+            get {
+                return ResourceManager.GetString("Sales", resourceCulture);
+            }
+        }
     }
 }

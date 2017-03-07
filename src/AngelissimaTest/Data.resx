@@ -150,4 +150,24 @@ FROM inventory i</comment>
 FROM product p
 INNER JOIN code c ON c.productid = p.id</comment>
   </data>
+  <data name="Sales" xml:space="preserve">
+    <value>[{"totalprice":8000,"id":1,"saleitems":[{"price":2500,"quantity":2,"saleid":1,"productid":1}, {"price":3000,"quantity":1,"saleid":1,"productid":2}],"saledate":"2017-03-06T19:25:41.279925"}
+,{"totalprice":14000,"id":2,"saleitems":[{"price":3000,"quantity":2,"saleid":2,"productid":2}, {"price":8000,"quantity":1,"saleid":2,"productid":3}],"saledate":"2017-03-06T19:25:41.30494"}
+,{"totalprice":5500,"id":3,"saleitems":[{"price":5500,"quantity":1,"saleid":3,"productid":4}],"saledate":"2017-03-06T19:25:41.30494"}
+,{"totalprice":15500,"id":4,"saleitems":[{"price":2500,"quantity":3,"saleid":4,"productid":1}, {"price":8000,"quantity":1,"saleid":4,"productid":3}],"saledate":"2017-03-06T19:25:41.30494"}
+,{"totalprice":8000,"id":5,"saleitems":[{"price":8000,"quantity":1,"saleid":5,"productid":3}],"saledate":"2017-03-06T19:25:41.30494"}
+,{"totalprice":11500,"id":6,"saleitems":[{"price":3000,"quantity":2,"saleid":6,"productid":2}, {"price":5500,"quantity":1,"saleid":6,"productid":4}],"saledate":"2017-03-06T19:25:41.30494"}]</value>
+    <comment>SELECT
+        array_agg(json_build_object(
+                'id', s.id,
+                'saledate', s.saledate,
+            	'totalprice', s.totalprice,
+                'saleitem', json_build_object(                        
+                    	'quantity', si.quantity,
+                		'price', si.price
+                )
+    ))
+FROM sale s
+INNER JOIN saleitem si ON si.saleid = s.id</comment>
+  </data>
 </root>

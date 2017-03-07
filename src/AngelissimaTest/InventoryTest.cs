@@ -29,44 +29,31 @@
         }
 
         [Fact]
-        public void GetProductsShouldReturnAllProducts()
+        public void GetInventoryProductShouldReturnProductQuantity()
         {
             IInventoryRepository inventoryRepository = Substitute.For<IInventoryRepository>();
             ISaleRepository saleRepository = Substitute.For<ISaleRepository>();
             ILogger<InventoryController> logger = Substitute.For<ILogger<InventoryController>>();
 
-            //string products = Data.ResourceManager.GetString("Products");
-            //IEnumerable<Product> lstProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(products);
+            string inventory = Data.ResourceManager.GetString("Inventory");
+            IEnumerable<Inventory> lstInventory = JsonConvert.DeserializeObject<IEnumerable<Inventory>>(inventory);
 
-            //productRepository.GetAll().Returns(lstProducts);
+            string sales = Data.ResourceManager.GetString("Sales");
+            IEnumerable<Sale> lstSales = JsonConvert.DeserializeObject<IEnumerable<Sale>>(sales);
 
-            //ProductController controller = new ProductController(productRepository, mapper, logger);
+            inventoryRepository.Find(1).Returns(lstInventory.First(i => i.ProductId == 1));
+            inventoryRepository.GetTotalInventoryProductQuantity(1).Returns(lstInventory.Where(i => i.ProductId == 1).Sum(ti => ti.Quantity));
 
-            //var result = controller.Get();
-            //var viewResult = Assert.IsType<OkObjectResult>(result);
-            //var model = Assert.IsAssignableFrom<IEnumerable<ProductViewModel>>(viewResult.Value);
+            saleRepository.GetTotalSalesProductQuantity(1).Returns(lstSales.SelectMany(s => s.SaleItems).Where(si => si.ProductId == 1).Sum(si => si.Quantity));
 
-            //model.Should().HaveCount(4);
-        }
+            InventoryController controller = new InventoryController(inventoryRepository, saleRepository, mapper, logger);
 
-        [Fact]
-        public void GetProductShouldReturnProduct()
-        {
-            //IProductRepository productRepository = Substitute.For<IProductRepository>();
-            //ILogger<ProductController> logger = Substitute.For<ILogger<ProductController>>();
+            var result = controller.Get(1);
+            var viewResult = Assert.IsType<OkObjectResult>(result);
+            var model = Assert.IsAssignableFrom<InventoryViewModel>(viewResult.Value);
 
-            //string products = Data.ResourceManager.GetString("Products");
-            //IEnumerable<Product> lstProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(products);
-
-            //productRepository.Find(1).Returns(lstProducts.First(lp => lp.Id == 1));
-
-            //ProductController controller = new ProductController(productRepository, mapper, logger);
-
-            //var result = controller.Get(1);
-            //var viewResult = Assert.IsType<OkObjectResult>(result);
-            //var model = Assert.IsAssignableFrom<ProductViewModel>(viewResult.Value);
-
-            //model.ProductId.Should().Be(1);
+            model.TotalQuantity.Should().Be(6);
+            model.ProductId.Should().Be(1);
         }
     }
 }
