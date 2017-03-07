@@ -10,6 +10,9 @@ import { BarCode } from '../../barcodes/shared/barcode';
 
 import { SaleService } from '../shared/sale.service';
 import { ProductService } from '../../products/shared/product.service';
+import { TranslateService } from 'ng2-translate';
+
+import { AlertType } from '../../shared/enums';
 
 @Component({
   selector: 'sale',
@@ -19,8 +22,8 @@ import { ProductService } from '../../products/shared/product.service';
 export class SaleComponent implements OnInit {
   private saleItem: SaleItem;
   private sale: Sale;
-  private errorMessage: string;
-  private message: string;
+  private message: string = "";
+  private alertType: string = "danger";
   private productList: Product[];
   private autocompleteList: Item[];
   private totalCash: number = 0;
@@ -29,7 +32,8 @@ export class SaleComponent implements OnInit {
     , private productService: ProductService
     , private route: ActivatedRoute
     , private router: Router
-    , private location: Location) {
+    , private location: Location
+    , private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -41,7 +45,7 @@ export class SaleComponent implements OnInit {
     this.productService.getProducts()
       .subscribe(
       productList => this.mapProductsAutocomplete(productList),
-      error => this.errorMessage = <any>error);
+      error => this.showErrorMessage(<any>error));
   }
 
   mapProductsAutocomplete(productList: Product[]): void {
@@ -58,8 +62,12 @@ export class SaleComponent implements OnInit {
     this.saleService.insertSale(this.sale)
       .subscribe((data) => {
         this.clearForm();
+        this.translate.get('SAVEMESSAGE').subscribe((res: string) => {
+          this.message = res;
+          this.alertType = AlertType[AlertType.success];
+        });
       },
-      error => this.errorMessage = <any>error);
+      error => this.showErrorMessage(<any>error))
   }
 
   goBack(): void {
@@ -122,5 +130,15 @@ export class SaleComponent implements OnInit {
       this.saleItem.price = this.saleItem.product.salePrice;
       this.saleItem.quantity = 1;
     }
+  }
+
+  onAlertClose(event: any): void {
+    this.message = "";
+  }
+
+  showErrorMessage(errorMessage: TypeError): void {
+    this.message = errorMessage.message.slice(0, 35);
+    console.error(errorMessage.message + errorMessage.stack);
+    this.alertType = AlertType[AlertType.danger];
   }
 }

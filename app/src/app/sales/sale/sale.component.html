@@ -27,7 +27,8 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="price">{{ 'PRICE' | translate }}:</label>
-                <input type="number" id="price" name="price" class="form-control" [(ngModel)]="saleItem.price" placeholder="{{ 'PRICE' | translate }}" readonly>
+                <input type="number" id="price" name="price" class="form-control" [(ngModel)]="saleItem.price" placeholder="{{ 'PRICE' | translate }}"
+                    readonly>
             </div>
         </div>
         <button type="button" class="btn btn-success" (click)="onAdd()">{{ 'ACTIONS.ADD' | translate }}</button>
@@ -88,5 +89,10 @@
                 </div>
             </form>
         </div>
+    </div>
+    <div class="col-md-4 col-md-offset-8">
+        <alert type="{{alertType}}" (onClosed)="onAlertClose($event)" dismissOnTimeout="500000" *ngIf="message">
+            {{message}}..
+        </alert>
     </div>
 </div>

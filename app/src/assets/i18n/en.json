@@ -5,6 +5,7 @@
     "PRICE": "Price",
     "TOTALPRICE": "Total Price",
     "TOTAL": "Total",
+    "SAVEMESSAGE": "Item saved successfully.",
     "ACTIONS": {
         "ADD": "Add",
         "SAVE": "Save",

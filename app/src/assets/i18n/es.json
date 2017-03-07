@@ -5,6 +5,7 @@
     "PRICE": "Precio",
     "TOTALPRICE": "Precio total",
     "TOTAL": "Total",
+    "SAVEMESSAGE": "Elemento guardado exitosamente.",
     "ACTIONS": {
         "ADD": "Agregar",
         "SAVE": "Guardar",
