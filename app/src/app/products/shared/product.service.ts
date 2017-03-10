@@ -6,6 +6,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
+import ErrorHandling from '../../shared/error-handling';
+
 @Injectable()
 export class ProductService {
   constructor(private http: Http) {
@@ -15,7 +17,7 @@ export class ProductService {
   getProducts(): Observable<Product[]> {
     return this.http.get('http://localhost:60104/api/product')
       .map((responseData) => { return responseData.json(); })
-      .catch(this.handleError);
+      .catch(ErrorHandling.handleError);
   }
 
   getProduct(id: number): Observable<Product> {
@@ -23,7 +25,7 @@ export class ProductService {
       .map((responseData) => {
         return responseData.json();
       })
-      .catch(this.handleError);
+      .catch(ErrorHandling.handleError);
   }
 
   insertProduct(product: Product): Observable<string> {
@@ -34,7 +36,7 @@ export class ProductService {
       .map((responseData) => {
         return responseData.json();
       })
-      .catch(this.handleError);
+      .catch(ErrorHandling.handleError);
   }
 
   updateProduct(product: Product): Observable<string> {
@@ -45,7 +47,7 @@ export class ProductService {
       .map((responseData) => {
         return responseData.json();
       })
-      .catch(this.handleError);
+      .catch(ErrorHandling.handleError);
   }
 
   deleteProduct(id: number): Observable<string> {
@@ -55,26 +57,6 @@ export class ProductService {
           return "";
         }
       })
-      .catch(this.handleError);
-  }
-
-  private handleError(error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      if (error.status == 0) {
-        errMsg = "Could not stablish conection with api.";
-      }
-      else {
-        errMsg = 'Server Error';
-        const body = error.json() || errMsg;
-        const err = `${body.message} - ${body.innerException || ''}`;
-        console.log(`${error.status} - ${error.statusText || ''} ${err}`);
-      }
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    
-    return Observable.throw(errMsg);
-  }
+      .catch(ErrorHandling.handleError);
+  } 
 }

@@ -13,21 +13,21 @@ import { ProductService } from '../../products/shared/product.service';
 import { TranslateService } from 'ng2-translate';
 
 import { AlertType } from '../../shared/enums';
+import { Message } from '../../shared/message';
 
 @Component({
   selector: 'sale',
   template: require('./sale.component.html'),
-  styles: [require('./sale.component.css')]
 })
 
 export class SaleComponent implements OnInit {
   private saleItem: SaleItem;
   private sale: Sale;
-  private message: string = "";
   private alertType: string = "danger";
   private productList: Product[];
   private autocompleteList: Item[];
   private totalCash: number = 0;
+  private message: Message;
 
   constructor(private saleService: SaleService
     , private productService: ProductService
@@ -38,15 +38,17 @@ export class SaleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.message = new Message;
+    
     this.clearForm();
-    this.loadInfo();
+    this.loadInfo();   
   }
 
   loadInfo(): void {
     this.productService.getProducts()
       .subscribe(
       productList => this.mapProductsAutocomplete(productList),
-      error => this.showErrorMessage(<any>error));
+      error => this.message.message = error);
   }
 
   mapProductsAutocomplete(productList: Product[]): void {
@@ -64,11 +66,11 @@ export class SaleComponent implements OnInit {
       .subscribe((data) => {
         this.clearForm();
         this.translate.get('SAVEMESSAGE').subscribe((res: string) => {
-          this.message = res;
-          this.alertType = AlertType[AlertType.success];
+          this.message.message = res;
+          this.message.alertType = AlertType.success;
         });
       },
-      error => this.showErrorMessage(<any>error))
+      error => this.message.message = error)
   }
 
   goBack(): void {
@@ -131,14 +133,5 @@ export class SaleComponent implements OnInit {
       this.saleItem.price = this.saleItem.product.salePrice;
       this.saleItem.quantity = 1;
     }
-  }
-
-  onAlertClose(event: any): void {
-    this.message = "";
-  }
-
-  showErrorMessage(errorMessage: string): void {
-    this.message = errorMessage;    
-    this.alertType = AlertType[AlertType.danger];
   }
 }

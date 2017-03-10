@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { SaleComponent } from './sale/sale.component';
 import { SaleService } from './shared/sale.service';
 
+import { MessageComponent } from '../messages/message.component';
+
 import { AppRoutingModule } from '../app.routing.module';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
@@ -19,7 +21,7 @@ import { AlertModule } from 'ng2-bootstrap/alert';
         , Ng2AutoCompleteModule
         , AlertModule
         , TranslateModule],
-    declarations: [SaleComponent],
+    declarations: [SaleComponent, MessageComponent],
     providers: [SaleService]
 })
 

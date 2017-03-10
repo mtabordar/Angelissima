@@ -90,9 +90,5 @@
             </form>
         </div>
     </div>
-    <div class="divalert">
-        <alert type="{{alertType}}" (onClosed)="onAlertClose($event)" dismissOnTimeout="500000" *ngIf="message">
-            {{message}}..
-        </alert>
-    </div>
+    <message [message]="message" *ngIf="message.message"></message>
 </div>

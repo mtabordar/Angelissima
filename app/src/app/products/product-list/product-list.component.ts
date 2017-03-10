@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { ProductService } from '../shared/product.service';
 import { OnInit } from '@angular/core';
 
+import { Message } from '../../shared/message';
+
 @Component({
   selector: 'products-list',
   template: require('./product-list.component.html'),
@@ -12,25 +14,26 @@ import { OnInit } from '@angular/core';
 })
 
 export class ProductListComponent implements OnInit {
-  products: Product[];
-  filteredProducts: Product[];
-  errorMessage: string;
-  message: string;
-  public totalItems: number;
-  public currentPage: number;
-  public smallnumPages: number;
+  private products: Product[];
+  private filteredProducts: Product[];
+  private totalItems: number;
+  private currentPage: number;
+  private smallnumPages: number;
+  private message: Message;
 
   constructor(private productService: ProductService,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.message = new Message;
+    
     this.getProducts();
   }
 
   getProducts(): void {
     this.productService.getProducts().subscribe(
       products => this.loadInfo(products),
-      error => this.errorMessage = <any>error);
+      error => this.message.message = <any>error);
   }
 
   loadInfo(products: Product[]): void {
@@ -45,7 +48,7 @@ export class ProductListComponent implements OnInit {
         var index = this.filteredProducts.indexOf(product);
         this.filteredProducts.splice(index, 1);
       },
-      error => this.errorMessage = <any>error);
+      error => this.message.message = <any>error);
   }
 
   public setPage(pageNo: number): void {
