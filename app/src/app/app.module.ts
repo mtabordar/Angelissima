@@ -7,12 +7,13 @@ import { ProductModule } from './products/product.module';
 import { SaleModule } from './sales/sale.module';
 import { InventoryModule } from './inventory/Inventory.module';
 import { AlertModule } from 'ng2-bootstrap/alert';
+import { CollapseDirective } from 'ng2-bootstrap';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate';
 
 import { AppComponent } from './app.component';
-import { NavigationComponent } from './navigation/navigation.component';
+import { NavigationComponent } from './navigation/navigation.component'
 
 export function exportTranslateStaticLoader(http: Http) {
   return new TranslateStaticLoader(http, 'assets/i18n', '.json');
@@ -21,7 +22,8 @@ export function exportTranslateStaticLoader(http: Http) {
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent
+    NavigationComponent,
+    CollapseDirective
   ],
   imports: [
     BrowserModule,

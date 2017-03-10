@@ -28,11 +28,6 @@
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
-
-            //_mapperConfiguration = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.AddProfile(new AutoMapperProfileConfig());
-            //});
         }
 
         public IConfigurationRoot Configuration { get; }

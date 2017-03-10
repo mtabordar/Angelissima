@@ -4,6 +4,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ProductService {
@@ -50,9 +51,9 @@ export class ProductService {
   deleteProduct(id: number): Observable<string> {
     return this.http.delete('http://localhost:60104/api/product/' + id)
       .map((responseData) => {
-        if(responseData.status == 200){
+        if (responseData.status == 200) {
           return "";
-        } 
+        }
       })
       .catch(this.handleError);
   }
@@ -61,14 +62,19 @@ export class ProductService {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      if (error.status == 0) {
+        errMsg = "Could not stablish conection with api.";
+      }
+      else {
+        errMsg = 'Server Error';
+        const body = error.json() || errMsg;
+        const err = `${body.message} - ${body.innerException || ''}`;
+        console.log(`${error.status} - ${error.statusText || ''} ${err}`);
+      }
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-
-    console.error(errMsg);
+    
     return Observable.throw(errMsg);
   }
 }

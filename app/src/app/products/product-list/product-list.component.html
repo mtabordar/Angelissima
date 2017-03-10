@@ -3,45 +3,50 @@
         <div class='panel-heading'>
             {{ 'PRODUCT.PRODUCTS' | translate }}
         </div>
-        <button class="btn btn-default" [routerLink]="['/product']">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            </button>
 
         <!-- Filter the Products   -->
         <div class='panel-body'>
-                <div class='table-responsive'>
-                    <table class='table'>
-                        <thead>
-                            <tr>
-                                <th>{{ 'PRODUCT.PRODUCT' | translate }}</th>
-                                <th>{{ 'PRICE' | translate }}</th>
-                                <th>{{ 'ACTIONS.EDIT' | translate }}</th>
-                                <th>{{ 'INVENTORY.INVENTORY' | translate }}</th>
-                                <th>{{ 'ACTIONS.DELETE' | translate }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor='let product of filteredProducts'>
-                                <td>{{product.name}}</td>
-                                <td>{{product.salePrice}}</td>
-                                <td>
-                                    <button class="btn btn-default" [routerLink]="['/product', product.productId, 'edit']">
+            <div class='table-responsive'>
+                <table class='table'>
+                    <thead>
+                        <tr>
+                            <th>
+                                <button class="btn btn-success" [routerLink]="['/product']">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    {{ 'ACTIONS.ADD' | translate }}
+                                </button>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>{{ 'PRODUCT.PRODUCT' | translate }}</th>
+                            <th>{{ 'PRICE' | translate }}</th>
+                            <th>{{ 'ACTIONS.EDIT' | translate }}</th>
+                            <th>{{ 'INVENTORY.INVENTORY' | translate }}</th>
+                            <th>{{ 'ACTIONS.DELETE' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let product of filteredProducts'>
+                            <td>{{product.name}}</td>
+                            <td>{{product.salePrice}}</td>
+                            <td>
+                                <button class="btn btn-default" [routerLink]="['/product', product.productId, 'edit']">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-default" [routerLink]="['/inventory', product.productId]">
+                            </td>
+                            <td>
+                                <button class="btn btn-default" [routerLink]="['/inventory', product.productId]">
                                     <span class="glyphicon glyphicon-th-list"></span>
                                 </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-default" (click)="onDelete(product)">
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" (click)="onDelete(product)">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <pagination [boundaryLinks]="true" [totalItems]="totalItems" [(ngModel)]="currentPage" class="pagination-sm" itemsPerPage="10"
                     previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
             </div>

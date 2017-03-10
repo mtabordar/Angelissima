@@ -17,6 +17,7 @@ import { AlertType } from '../../shared/enums';
 @Component({
   selector: 'sale',
   template: require('./sale.component.html'),
+  styles: [require('./sale.component.css')]
 })
 
 export class SaleComponent implements OnInit {
@@ -136,9 +137,8 @@ export class SaleComponent implements OnInit {
     this.message = "";
   }
 
-  showErrorMessage(errorMessage: TypeError): void {
-    this.message = errorMessage.message.slice(0, 35);
-    console.error(errorMessage.message + errorMessage.stack);
+  showErrorMessage(errorMessage: string): void {
+    this.message = errorMessage;    
     this.alertType = AlertType[AlertType.danger];
   }
 }
