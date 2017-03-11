@@ -1,4 +1,4 @@
-import { AlertType } from './enums';
+import { AlertType } from '../../shared/enums';
 
 export class Message {
     message: string;

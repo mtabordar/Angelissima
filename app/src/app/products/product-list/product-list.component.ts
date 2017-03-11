@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { Product } from '../shared/product';
-import { Router } from '@angular/router';
 
 import { ProductService } from '../shared/product.service';
 import { OnInit } from '@angular/core';
 
-import { Message } from '../../shared/message';
+import { Message } from '../../messages/shared/message';
 
 @Component({
   selector: 'products-list',
@@ -18,11 +17,9 @@ export class ProductListComponent implements OnInit {
   private filteredProducts: Product[];
   private totalItems: number;
   private currentPage: number;
-  private smallnumPages: number;
   private message: Message;
 
-  constructor(private productService: ProductService,
-    private router: Router) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.message = new Message;

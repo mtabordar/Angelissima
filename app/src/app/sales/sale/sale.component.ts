@@ -13,7 +13,7 @@ import { ProductService } from '../../products/shared/product.service';
 import { TranslateService } from 'ng2-translate';
 
 import { AlertType } from '../../shared/enums';
-import { Message } from '../../shared/message';
+import { Message } from '../../messages/shared/message';
 
 @Component({
   selector: 'sale',
@@ -31,8 +31,6 @@ export class SaleComponent implements OnInit {
 
   constructor(private saleService: SaleService
     , private productService: ProductService
-    , private route: ActivatedRoute
-    , private router: Router
     , private location: Location
     , private translate: TranslateService) {
   }

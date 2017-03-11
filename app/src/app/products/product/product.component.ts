@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/switchMap';
 
 import { Product } from '../shared/product';
 import { BarCode } from '../../barcodes/shared/barcode';
-
-import { ProductService } from '../shared/product.service';
+import { Message } from '../../messages/shared/message';
 
 import Operations from '../../shared/operations'
+
+import { ProductService } from '../shared/product.service';
 
 @Component({
   selector: 'product',
@@ -16,9 +16,8 @@ import Operations from '../../shared/operations'
 })
 
 export class ProductComponent implements OnInit {
-  product: Product;
-  errorMessage: string;
-  message: string;
+  private product: Product;
+  private message: Message;
   private sub: any;
 
   constructor(private productService: ProductService
@@ -28,6 +27,8 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.message = new Message;
+
     this.product = new Product;
     this.product.barCodes = new BarCode;
     this.product.minimunQuantity = 1;
@@ -38,14 +39,14 @@ export class ProductComponent implements OnInit {
         this.getProduct(productId);
       }
     },
-      error => console.log(error));
+      error => this.message.message = error);
   }
 
   getProduct(id: number): void {
     this.productService.getProduct(id)
       .subscribe(
       product => this.product = product,
-      error => this.errorMessage = <any>error);
+      error => this.message.message = <any>error);
   }
 
   updateProduct(): void {
@@ -53,7 +54,7 @@ export class ProductComponent implements OnInit {
       .subscribe((data) => {
         this.router.navigate(['products']);
       },
-      error => this.errorMessage = <any>error);
+      error => this.message.message = <any>error);
   }
 
   insertProduct(): void {
@@ -61,7 +62,7 @@ export class ProductComponent implements OnInit {
       .subscribe((data) => {
         this.router.navigate(['products']);
       },
-      error => this.errorMessage = <any>error);
+      error => this.message.message = <any>error);
   }
 
   goBack(): void {
@@ -76,7 +77,7 @@ export class ProductComponent implements OnInit {
       this.insertProduct();
     }
   }
-  
+
   calculateSalePrice(): void {
     this.product.salePrice = Operations.calculateAfterPercentage(this.product.unitPrice);
   }

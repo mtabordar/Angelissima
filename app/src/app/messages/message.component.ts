@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AlertType } from '../shared/enums';
-import { Message } from '../shared/message';
+import { Message } from './shared/message';
 
 @Component({
     selector: 'message',

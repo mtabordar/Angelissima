@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/switchMap';
 
 import { Inventory } from '../shared/inventory';
 import { Product } from '../../products/shared/product';
 import { BarCode } from '../../barcodes/shared/barcode';
+import { Message } from '../../messages/shared/message';
 
 import { InventoryService } from '../shared/inventory.service';
 import { ProductService } from '../../products/shared/product.service';
@@ -17,8 +17,7 @@ import { ProductService } from '../../products/shared/product.service';
 
 export class InventoryComponent implements OnInit {
   inventory: Inventory;
-  errorMessage: string;
-  message: string;
+  private message: Message;
   private sub: any;
 
   constructor(private inventoryService: InventoryService
@@ -29,6 +28,8 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.message = new Message;
+
     this.inventory = new Inventory;
     this.inventory.product = new Product;
     this.inventory.product.barCodes = new BarCode;
@@ -42,21 +43,21 @@ export class InventoryComponent implements OnInit {
         this.getProduct(productId);
       }
     },
-      error => console.log(error));
+      error => this.message.message = error);
   }
 
   getInventory(productId: number): void {
     this.inventoryService.getInventoryForProduct(productId)
       .subscribe(
       inventory => this.inventory = (inventory) ? inventory : this.inventory,
-      error => this.errorMessage = <any>error);
+      error => this.message.message = <any>error);
   }
 
   getProduct(id: number): void {
     this.productService.getProduct(id)
       .subscribe(
       product => this.inventory.product = product,
-      error => this.errorMessage = <any>error);
+      error => this.message.message = <any>error);
   }
 
   goBack(): void {
@@ -68,6 +69,6 @@ export class InventoryComponent implements OnInit {
       .subscribe((data) => {
         this.router.navigate(['products']);
       },
-      error => this.errorMessage = <any>error);
+      error => this.message.message = <any>error);
   }
 }

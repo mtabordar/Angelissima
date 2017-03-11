@@ -36,7 +36,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
 
@@ -57,7 +57,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
 
@@ -80,7 +80,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
 
@@ -103,7 +103,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
 
@@ -119,7 +119,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
     }
