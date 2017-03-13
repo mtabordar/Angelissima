@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Sale } from './sale'
-import { Http, Response, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -9,15 +9,14 @@ import ErrorHandling from '../../shared/error-handling';
 
 @Injectable()
 export class SaleService {
-  constructor(private http: Http) {
+  private urlWebApi: string;
 
+  constructor(private http: Http) {
+    this.urlWebApi = "http://localhost:60104/api/sale/";
   }
 
   insertSale(sale: Sale): Observable<string> {
-    let headers = new Headers;
-    headers.append('Content-Type', 'application/json')
-
-    return this.http.post('http://localhost:60104/api/sale', JSON.stringify(sale), { headers: headers })
+    return this.http.post(this.urlWebApi, JSON.stringify(sale))
       .map((responseData) => {
         return responseData.json();
       })

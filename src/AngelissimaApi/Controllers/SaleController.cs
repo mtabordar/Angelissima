@@ -23,7 +23,7 @@
             _logger = logger;
         }
 
-        // GET: api/registry
+        // GET: api/sale
         [HttpGet]
         public IActionResult Get()
         {
@@ -38,7 +38,7 @@
             }
         }
 
-        // GET api/registry/5
+        // GET api/sale/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -53,7 +53,7 @@
             }
         }
 
-        // POST api/registry
+        // POST api/sale
         [HttpPost]
         public IActionResult Post([FromBody]SaleViewModel sale)
         {
@@ -76,7 +76,7 @@
             }
         }
 
-        // PUT api/registry/5
+        // PUT api/sale/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]SaleViewModel sale)
         {
@@ -99,7 +99,7 @@
             }
         }
 
-        // DELETE api/registry/5
+        // DELETE api/sale/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

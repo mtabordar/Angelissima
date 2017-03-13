@@ -13,7 +13,8 @@
         "DELETE": "Eliminar",
         "BACK": "Atras",
         "EDIT": "Editar",
-        "SEARCH": "Buscar"
+        "SEARCH": "Buscar",
+        "CLEAR": "Limpiar"
     },
     "SALE": {
         "SALE": "Venta",

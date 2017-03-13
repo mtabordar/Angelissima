@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { Http } from '@angular/http';
 import { AppRoutingModule } from './app.routing.module';
 import { ProductModule } from './products/product.module';
@@ -12,6 +12,9 @@ import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-tra
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component'
+
+import { requestOptionsProvider } from './shared/default-request-options.service';
+import { AppConfig } from './app.config.service';
 
 export function exportTranslateStaticLoader(http: Http) {
   return new TranslateStaticLoader(http, 'assets/i18n', '.json');
@@ -37,7 +40,9 @@ export function exportTranslateStaticLoader(http: Http) {
       deps: [Http]
     })
   ],
-  providers: [],
+  providers: [requestOptionsProvider,
+    AppConfig, { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

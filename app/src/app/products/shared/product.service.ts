@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Product } from './product'
-import { Http, Response, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/throw';
 
 import ErrorHandling from '../../shared/error-handling';
+import { AppConfig } from '../../app.config.service';
 
 @Injectable()
 export class ProductService {
-  constructor(private http: Http) {
+  urlWebApi: string;
 
+  constructor(private http: Http, private config: AppConfig) {
+      this.urlWebApi = "http://localhost:60104/api/product/";
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get('http://localhost:60104/api/product')
+    return this.http.get(this.urlWebApi)
       .map((responseData) => { return responseData.json(); })
       .catch(ErrorHandling.handleError);
   }
 
   getProduct(id: number): Observable<Product> {
-    return this.http.get('http://localhost:60104/api/product/' + id)
+    return this.http.get(this.urlWebApi + id)
       .map((responseData) => {
         return responseData.json();
       })
@@ -29,10 +31,7 @@ export class ProductService {
   }
 
   insertProduct(product: Product): Observable<string> {
-    let headers = new Headers;
-    headers.append('Content-Type', 'application/json')
-
-    return this.http.post('http://localhost:60104/api/product', JSON.stringify(product), { headers: headers })
+    return this.http.post(this.urlWebApi, JSON.stringify(product))
       .map((responseData) => {
         return responseData.json();
       })
@@ -40,10 +39,7 @@ export class ProductService {
   }
 
   updateProduct(product: Product): Observable<string> {
-    let headers = new Headers;
-    headers.append('Content-Type', 'application/json')
-
-    return this.http.put('http://localhost:60104/api/product/' + product.productId, JSON.stringify(product), { headers: headers })
+    return this.http.put(this.urlWebApi + product.productId, JSON.stringify(product))
       .map((responseData) => {
         return responseData.json();
       })
@@ -51,12 +47,12 @@ export class ProductService {
   }
 
   deleteProduct(id: number): Observable<string> {
-    return this.http.delete('http://localhost:60104/api/product/' + id)
+    return this.http.delete(this.urlWebApi + id)
       .map((responseData) => {
         if (responseData.status == 200) {
           return "";
         }
       })
       .catch(ErrorHandling.handleError);
-  } 
+  }
 }

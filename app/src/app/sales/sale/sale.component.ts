@@ -37,9 +37,9 @@ export class SaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.message = new Message;
-    
+
     this.clearForm();
-    this.loadInfo();   
+    this.loadInfo();
   }
 
   loadInfo(): void {

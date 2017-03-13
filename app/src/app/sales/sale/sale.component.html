@@ -85,6 +85,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <button class="btn" type="button" (click)="clearForm()">{{ 'ACTIONS.CLEAR' | translate }}</button>
                     <button type="submit" ng-disabled="saleForm.$invalid" class="btn btn-success">{{ 'ACTIONS.SAVE' | translate }}</button>
                 </div>
             </form>

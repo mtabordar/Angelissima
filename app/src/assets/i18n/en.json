@@ -13,7 +13,8 @@
         "DELETE": "Delete",
         "BACK": "Back",
         "EDIT": "Edit",
-        "SEARCH": "Search"
+        "SEARCH": "Search",
+        "CLEAR": "Clear"
     },
     "SALE": {
         "SALE": "Sale",
