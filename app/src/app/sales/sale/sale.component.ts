@@ -23,7 +23,6 @@ import { Message } from '../../messages/shared/message';
 export class SaleComponent implements OnInit {
   private saleItem: SaleItem;
   private sale: Sale;
-  private alertType: string = "danger";
   private productList: Product[];
   private autocompleteList: Item[];
   private totalCash: number = 0;
@@ -111,6 +110,7 @@ export class SaleComponent implements OnInit {
     this.saleItem = new SaleItem;
     this.saleItem.product = new Product;
     this.saleItem.product.barCodes = new BarCode;
+    this.totalCash = 0;
   }
 
   onValueChanged(event: any): void {

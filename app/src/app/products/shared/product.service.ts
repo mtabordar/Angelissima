@@ -6,24 +6,26 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import ErrorHandling from '../../shared/error-handling';
-import { AppConfig } from '../../app.config.service';
+var config = require('../../app.config.json');
 
 @Injectable()
 export class ProductService {
-  urlWebApi: string;
+  private webApiUrl: string;
+  private controllerName: string;
 
-  constructor(private http: Http, private config: AppConfig) {
-      this.urlWebApi = "http://localhost:60104/api/product/";
+  constructor(private http: Http) {
+      this.controllerName = "product";
+      this.webApiUrl = `${config.webApiUrl}${this.controllerName}/`;
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get(this.urlWebApi)
+    return this.http.get(this.webApiUrl)
       .map((responseData) => { return responseData.json(); })
       .catch(ErrorHandling.handleError);
   }
 
   getProduct(id: number): Observable<Product> {
-    return this.http.get(this.urlWebApi + id)
+    return this.http.get(this.webApiUrl + id)
       .map((responseData) => {
         return responseData.json();
       })
@@ -31,7 +33,7 @@ export class ProductService {
   }
 
   insertProduct(product: Product): Observable<string> {
-    return this.http.post(this.urlWebApi, JSON.stringify(product))
+    return this.http.post(this.webApiUrl, JSON.stringify(product))
       .map((responseData) => {
         return responseData.json();
       })
@@ -39,7 +41,7 @@ export class ProductService {
   }
 
   updateProduct(product: Product): Observable<string> {
-    return this.http.put(this.urlWebApi + product.productId, JSON.stringify(product))
+    return this.http.put(this.webApiUrl + product.productId, JSON.stringify(product))
       .map((responseData) => {
         return responseData.json();
       })
@@ -47,7 +49,7 @@ export class ProductService {
   }
 
   deleteProduct(id: number): Observable<string> {
-    return this.http.delete(this.urlWebApi + id)
+    return this.http.delete(this.webApiUrl + id)
       .map((responseData) => {
         if (responseData.status == 200) {
           return "";

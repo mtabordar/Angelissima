@@ -6,17 +6,20 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import ErrorHandling from '../../shared/error-handling';
+var config = require('../../app.config.json');
 
 @Injectable()
 export class InventoryService {
-  private urlWebApi: string;
+  private webApiUrl: string;
+  private controllerName: string;
 
   constructor(private http: Http) {
-    this.urlWebApi = "http://localhost:60104/api/inventory/";
+    this.controllerName = "inventory";
+    this.webApiUrl = `${config.webApiUrl}${this.controllerName}/`;
   }
 
   getInventoryForProduct(id: number): Observable<Inventory> {
-    return this.http.get(this.urlWebApi + id)
+    return this.http.get(this.webApiUrl + id)
       .map((responseData) => {
         return responseData.json();
       })
@@ -24,7 +27,7 @@ export class InventoryService {
   }
 
   insertInventory(product: Inventory): Observable<string> {
-    return this.http.post(this.urlWebApi, JSON.stringify(product))
+    return this.http.post(this.webApiUrl, JSON.stringify(product))
       .map((responseData) => {
         return responseData.json();
       })

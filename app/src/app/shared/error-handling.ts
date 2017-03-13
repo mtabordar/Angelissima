@@ -4,7 +4,6 @@ import 'rxjs/add/observable/throw';
 
 export default class ErrorHandling {
     static handleError(error: Response | any) {
-        // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;
         if (error instanceof Response) {
             if (error.status == 0) {

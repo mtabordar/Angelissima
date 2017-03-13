@@ -11,7 +11,7 @@
                     <thead>
                         <tr>
                             <th>
-                                <button class="btn btn-success" [routerLink]="['/product']">
+                                <button type="button" class="btn btn-success" [routerLink]="['/product']">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     {{ 'ACTIONS.ADD' | translate }}
                                 </button>
@@ -30,17 +30,17 @@
                             <td>{{product.name}}</td>
                             <td>{{product.salePrice}}</td>
                             <td>
-                                <button class="btn btn-default" [routerLink]="['/product', product.productId, 'edit']">
+                                <button type="button" class="btn btn-default" [routerLink]="['/product', product.productId, 'edit']">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </button>
                             </td>
                             <td>
-                                <button class="btn btn-default" [routerLink]="['/inventory', product.productId]">
+                                <button type="button" class="btn btn-default" [routerLink]="['/inventory', product.productId]">
                                     <span class="glyphicon glyphicon-th-list"></span>
                                 </button>
                             </td>
                             <td>
-                                <button class="btn btn-danger" (click)="onDelete(product)">
+                                <button type="button" class="btn btn-danger" (click)="onDelete(product)">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>
                             </td>

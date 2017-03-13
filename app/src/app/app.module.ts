@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component'
 
 import { requestOptionsProvider } from './shared/default-request-options.service';
-import { AppConfig } from './app.config.service';
 
 export function exportTranslateStaticLoader(http: Http) {
   return new TranslateStaticLoader(http, 'assets/i18n', '.json');
@@ -40,9 +39,7 @@ export function exportTranslateStaticLoader(http: Http) {
       deps: [Http]
     })
   ],
-  providers: [requestOptionsProvider,
-    AppConfig, { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true }
-  ],
+  providers: [requestOptionsProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
