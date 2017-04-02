@@ -1,5 +1,5 @@
-<div class="flash-message">
-    <alert type="{{alertType[message.alertType]}}" (onClosed)="onAlertClose($event)" dismissOnTimeout="5000" *ngIf="message.message">
+<div class="flash-message" *ngIf="message.message">
+    <alert type="{{alertType[message.alertType]}}" (onClosed)="onAlertClose($event)" dismissOnTimeout="5000">
         {{message.message}}..
     </alert>
 </div>

@@ -4,7 +4,7 @@ import { BarCode } from './shared/barcode';
 
 @Component({
     selector: 'barcodes',
-    template: require('./barcodes.component.html'),
+    templateUrl: './barcodes.component.html',
 })
 
 export class BarCodeComponent {

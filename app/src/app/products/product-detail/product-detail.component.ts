@@ -3,7 +3,7 @@ import { Product } from '../shared/product';
 
 @Component({
     selector: 'product-detail',
-    template: require('./product-detail.component.html')
+    templateUrl: './product-detail.component.html'
 })
 
 export class ProductDetailComponent {

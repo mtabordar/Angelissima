@@ -4,8 +4,8 @@ import { Message } from './shared/message';
 
 @Component({
     selector: 'message',
-    template: require('./message.component.html'),
-    styles: [require('./message.component.css')],
+    template: './message.component.html',
+    styles: ['./message.component.css'],
 })
 
 export class MessageComponent {

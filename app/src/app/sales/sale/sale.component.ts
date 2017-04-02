@@ -17,7 +17,7 @@ import { Message } from '../../messages/shared/message';
 
 @Component({
   selector: 'sale',
-  template: require('./sale.component.html'),
+  templateUrl: './sale.component.html',
 })
 
 export class SaleComponent implements OnInit {

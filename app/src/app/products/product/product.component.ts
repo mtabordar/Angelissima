@@ -12,7 +12,7 @@ import { ProductService } from '../shared/product.service';
 
 @Component({
   selector: 'product',
-  template: require('./product.component.html'),
+  templateUrl: './product.component.html',
 })
 
 export class ProductComponent implements OnInit {
