@@ -45,8 +45,16 @@ export class ProductComponent implements OnInit {
   getProduct(id: number): void {
     this.productService.getProduct(id)
       .subscribe(
-      product => this.product = product,
+      product => this.setProduct(product),
       error => this.message.message = <any>error);
+  }
+
+  setProduct(product: Product): void {
+    if(!product.barCodes){
+      product.barCodes = new BarCode;
+    }
+
+    this.product = product;
   }
 
   updateProduct(): void {

@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6C2DCB57-6361-4AE3-BA51-CDE71540E9E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{789E933D-DB3F-4067-AD67-993024140717}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AngelissimaApi", "src\AngelissimaApi\AngelissimaApi.xproj", "{7F650846-2EFB-4058-8F71-5A5D96DCA31D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngelissimaApi", "src\AngelissimaApi\AngelissimaApi.csproj", "{7F650846-2EFB-4058-8F71-5A5D96DCA31D}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AngelissimaTest", "src\AngelissimaTest\AngelissimaTest.xproj", "{37330C1B-55D4-4167-B194-CB621ADD854A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngelissimaTest", "src\AngelissimaTest\AngelissimaTest.csproj", "{37330C1B-55D4-4167-B194-CB621ADD854A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

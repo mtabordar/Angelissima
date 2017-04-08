@@ -1,33 +1,20 @@
 ﻿namespace AngelissimaTest
 {
     using AngelissimaApi;
-    using AngelissimaApi.Controllers;
+    using AngelissimaApi.Core;
+    using AngelissimaApi.Core.Interfaces;
     using AngelissimaApi.Models;
     using AngelissimaApi.Models.Interfaces;
-    using AngelissimaApi.ViewModels;
     using AutoMapper;
     using FluentAssertions;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using NSubstitute;
     using System.Collections.Generic;
-    using Xunit;
     using System.Linq;
+    using Xunit;
 
     public class ProductTest
     {
-        IMapper mapper;
-        public ProductTest()
-        {
-            MapperConfiguration config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<AutoMapperProfileConfig>();
-            });
-
-            mapper = config.CreateMapper();
-        }
-
         [Fact]
         public void AutoMapperConfigurationIsValid()
         {
@@ -39,40 +26,36 @@
         public void GetProductsShouldReturnAllProducts()
         {
             IProductRepository productRepository = Substitute.For<IProductRepository>();
-            ILogger<ProductController> logger = Substitute.For<ILogger<ProductController>>();
+            ICodeRepository codeRepository = Substitute.For<ICodeRepository>();
 
             string products = Data.ResourceManager.GetString("Products");
             IEnumerable<Product> lstProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(products);
 
             productRepository.GetAll().Returns(lstProducts);
 
-            ProductController controller = new ProductController(productRepository, mapper, logger);
+            IProductCore controller = new ProductCore(productRepository, codeRepository);
 
-            var result = controller.Get();
-            var viewResult = Assert.IsType<OkObjectResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<ProductViewModel>>(viewResult.Value);
+            var result = controller.GetAll();
 
-            model.Should().HaveCount(4);
+            result.Should().HaveCount(4);
         }
 
         [Fact]
         public void GetProductShouldReturnProduct()
         {
             IProductRepository productRepository = Substitute.For<IProductRepository>();
-            ILogger<ProductController> logger = Substitute.For<ILogger<ProductController>>();
+            ICodeRepository codeRepository = Substitute.For<ICodeRepository>();
 
             string products = Data.ResourceManager.GetString("Products");
             IEnumerable<Product> lstProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(products);
 
             productRepository.Find(1).Returns(lstProducts.First(lp => lp.Id == 1));
 
-            ProductController controller = new ProductController(productRepository, mapper, logger);
+            IProductCore controller = new ProductCore(productRepository, codeRepository);
 
-            var result = controller.Get(1);
-            var viewResult = Assert.IsType<OkObjectResult>(result);
-            var model = Assert.IsAssignableFrom<ProductViewModel>(viewResult.Value);
+            var result = controller.Find(1);
 
-            model.ProductId.Should().Be(1);
+            result.Id.Should().Be(1);
         }
     }
 }

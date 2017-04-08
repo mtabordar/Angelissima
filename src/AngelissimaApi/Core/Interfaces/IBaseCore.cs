@@ -1,8 +1,8 @@
-﻿namespace AngelissimaApi.Models.Interfaces
+﻿namespace AngelissimaApi.Core.Interfaces
 {
     using System.Collections.Generic;
 
-    public interface IBaseRepository<T>
+    public interface IBaseCore<T>
     {
         void Add(T item);
 
@@ -12,10 +12,6 @@
 
         void Remove(int id);
 
-        void Remove(T entity);
-
         void Update(T item);
-
-        void SaveChanges();
     }
 }

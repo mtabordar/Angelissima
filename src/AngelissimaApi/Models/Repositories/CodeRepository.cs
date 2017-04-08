@@ -1,38 +1,20 @@
 ﻿namespace AngelissimaApi.Models.Repositories
 {
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
 
-    public class CodeRepository : ICodeRepository
+    public class CodeRepository : BaseRepository<Code>, ICodeRepository
     {
-        public void Add(Code item)
+        private AngelContext _context;
+
+        public CodeRepository(AngelContext context) : base(context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Code Find(int id)
+        public IEnumerable<Code> GetCodesByProduct(int productId)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Code> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Code> GetCodes(int productId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Code item)
-        {
-            throw new NotImplementedException();
+            return _context.Codes.Where(c => c.ProductId == productId);
         }
     }
 }

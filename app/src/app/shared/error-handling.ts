@@ -12,7 +12,8 @@ export default class ErrorHandling {
             else {
                 errMsg = 'Server Error';
                 const body = error.json() || errMsg;
-                const err = `${body.message} - ${body.innerException || ''}`;
+                const err = `${body.value || ''}`;
+                errMsg += " - " + err;
                 console.error(`${error.status} - ${error.statusText || ''} ${err}`);
             }
         } else {

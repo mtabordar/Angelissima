@@ -1,39 +1,23 @@
 ﻿namespace AngelissimaTest
 {
-    using AngelissimaApi;
-    using AngelissimaApi.Controllers;
+    using AngelissimaApi.Core;
+    using AngelissimaApi.Core.Interfaces;
     using AngelissimaApi.Models;
     using AngelissimaApi.Models.Interfaces;
-    using AngelissimaApi.ViewModels;
-    using AutoMapper;
     using FluentAssertions;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using NSubstitute;
     using System.Collections.Generic;
-    using Xunit;
     using System.Linq;
+    using Xunit;
 
     public class InventoryTest
     {
-        IMapper mapper;
-        public InventoryTest()
-        {
-            MapperConfiguration config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<AutoMapperProfileConfig>();
-            });
-
-            mapper = config.CreateMapper();
-        }
-
         [Fact]
         public void GetInventoryProductShouldReturnProductQuantity()
         {
             IInventoryRepository inventoryRepository = Substitute.For<IInventoryRepository>();
             ISaleRepository saleRepository = Substitute.For<ISaleRepository>();
-            ILogger<InventoryController> logger = Substitute.For<ILogger<InventoryController>>();
 
             string inventory = Data.ResourceManager.GetString("Inventory");
             IEnumerable<Inventory> lstInventory = JsonConvert.DeserializeObject<IEnumerable<Inventory>>(inventory);
@@ -46,14 +30,12 @@
 
             saleRepository.GetTotalSalesProductQuantity(1).Returns(lstSales.SelectMany(s => s.SaleItems).Where(si => si.ProductId == 1).Sum(si => si.Quantity));
 
-            InventoryController controller = new InventoryController(inventoryRepository, saleRepository, mapper, logger);
+            IInventoryCore controller = new InventoryCore(inventoryRepository, saleRepository);
 
-            var result = controller.Get(1);
-            var viewResult = Assert.IsType<OkObjectResult>(result);
-            var model = Assert.IsAssignableFrom<InventoryViewModel>(viewResult.Value);
+            var result = controller.Find(1);
 
-            model.TotalQuantity.Should().Be(6);
-            model.ProductId.Should().Be(1);
+            //result.TotalQuantity.Should().Be(6);
+            result.ProductId.Should().Be(1);
         }
     }
 }

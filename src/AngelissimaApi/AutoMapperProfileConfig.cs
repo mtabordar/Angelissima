@@ -10,13 +10,19 @@
         {
             CreateMap<ProductViewModel, Product>()
                 .ForMember(prod => prod.Id, options => options.MapFrom(pvm => pvm.ProductId))
+                .ForMember(prod => prod.BarCodes, options => options.MapFrom(pvm => Mapper.Map<ProductViewModel, Code>(pvm)))
                 .ForMember(prod => prod.UpdatedAt, options => options.Ignore());
+
+            CreateMap<ProductViewModel, Code>()
+               .ForMember(c => c.ProductId, options => options.MapFrom(pvm => pvm.ProductId))
+               .ForMember(c => c.BarCode, opt => opt.MapFrom(pvm => pvm.BarCodes.BarCode))
+               .ForMember(c => c.Product, opt => opt.Ignore());
 
             CreateMap<Product, ProductViewModel>()
                 .ForMember(pvm => pvm.ProductId, options => options.MapFrom(prod => prod.Id));
 
-            CreateMap<Code, BarCodeViewModel>().ReverseMap();
-
+            CreateMap<Code, BarCodeViewModel>();
+           
             CreateMap<InventoryViewModel, Inventory>()
                 .ForMember(inv => inv.Id, options => options.Ignore());
 

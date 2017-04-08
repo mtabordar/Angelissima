@@ -1,10 +1,10 @@
 ﻿namespace AngelissimaApi.Controllers
 {
     using AutoMapper;
+    using Core.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Models;
-    using Models.Interfaces;
     using System;
     using System.Collections.Generic;
     using ViewModels;
@@ -12,13 +12,13 @@
     [Route("api/[controller]")]
     public class ProductController : Controller
     {
-        private IProductRepository _productRepository;
+        private IProductCore _productCore;
         private IMapper _mapper;
         private ILogger<ProductController> _logger;
 
-        public ProductController(IProductRepository productRepository, IMapper mapper, ILogger<ProductController> logger)
+        public ProductController(IProductCore productCore, IMapper mapper, ILogger<ProductController> logger)
         {
-            _productRepository = productRepository;
+            _productCore = productCore;
             _mapper = mapper;
             _logger = logger;
         }
@@ -29,12 +29,12 @@
         {
             try
             {
-                return Ok(_mapper.Map<IEnumerable<ProductViewModel>>(_productRepository.GetAll()));
+                return Ok(_mapper.Map<IEnumerable<ProductViewModel>>(_productCore.GetAll()));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex);
+                return StatusCode(500, Json(ex.Message));
             }
         }
 
@@ -44,12 +44,12 @@
         {
             try
             {
-                return Ok(_mapper.Map<ProductViewModel>(_productRepository.Find(id)));
+                return Ok(_mapper.Map<ProductViewModel>(_productCore.Find(id)));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex);
+                return StatusCode(500, Json(ex.Message));
             }
         }
 
@@ -61,7 +61,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _productRepository.Add(_mapper.Map<Product>(product));
+                    _productCore.Add(_mapper.Map<Product>(product));
                     return Created("", product);
                 }
                 else
@@ -72,7 +72,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex);
+                return StatusCode(500, Json(ex.Message));
             }
         }
 
@@ -84,7 +84,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _productRepository.Update(_mapper.Map<Product>(product));
+                    _productCore.Update(_mapper.Map<Product>(product));
                     return Created("", product);
                 }
                 else
@@ -95,7 +95,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex);
+                return StatusCode(500, Json(ex.Message));
             }
         }
 
@@ -105,13 +105,13 @@
         {
             try
             {
-                _productRepository.Remove(id);
+                _productCore.Remove(id);
                 return Ok();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex);
+                return StatusCode(500, Json(ex.Message));
             }
         }
     }

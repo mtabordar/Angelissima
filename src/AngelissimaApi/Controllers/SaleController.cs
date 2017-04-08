@@ -1,24 +1,24 @@
 ﻿namespace AngelissimaApi.Controllers
 {
     using Models;
-    using Models.Interfaces;
     using ViewModels;
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Generic;
+    using AngelissimaApi.Core.Interfaces;
 
     [Route("api/[controller]")]
     public class SaleController : Controller
     {
-        private ISaleRepository _saleRepository;
+        private ISaleCore _saleCore;
         private IMapper _mapper;
         private ILogger<SaleController> _logger;
 
-        public SaleController(ISaleRepository saleRepository, IMapper mapper, ILogger<SaleController> logger)
+        public SaleController(ISaleCore saleCore, IMapper mapper, ILogger<SaleController> logger)
         {
-            _saleRepository = saleRepository;
+            _saleCore = saleCore;
             _mapper = mapper;
             _logger = logger;
         }
@@ -29,7 +29,7 @@
         {
             try
             {
-                return Ok(_mapper.Map<IEnumerable<SaleViewModel>>(_saleRepository.GetAll()));
+                return Ok(_mapper.Map<IEnumerable<SaleViewModel>>(_saleCore.GetAll()));
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@
         {
             try
             {
-                return Ok(_mapper.Map<SaleViewModel>(_saleRepository.Find(id)));
+                return Ok(_mapper.Map<SaleViewModel>(_saleCore.Find(id)));
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _saleRepository.Add(_mapper.Map<Sale>(sale));
+                    _saleCore.Add(_mapper.Map<Sale>(sale));
                     return Created("", sale);
                 }
                 else
@@ -84,7 +84,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _saleRepository.Update(_mapper.Map<Sale>(sale));
+                    _saleCore.Update(_mapper.Map<Sale>(sale));
                     return Created("", sale);
                 }
                 else
@@ -105,7 +105,7 @@
         {
             try
             {
-                _saleRepository.Remove(id);
+                _saleCore.Remove(id);
                 return Ok();
             }
             catch (Exception ex)

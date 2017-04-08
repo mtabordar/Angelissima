@@ -1,6 +1,8 @@
 ﻿namespace AngelissimaApi
 {
     using AutoMapper;
+    using Core;
+    using Core.Interfaces;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -43,6 +45,11 @@
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISaleRepository, SaleRepository>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
+            services.AddScoped<ICodeRepository, CodeRepository>();
+
+            services.AddScoped<IProductCore, ProductCore>();
+            services.AddScoped<IInventoryCore, InventoryCore>();
+            services.AddScoped<ISaleCore, SaleCore>();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

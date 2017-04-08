@@ -5,6 +5,6 @@
 
     public interface ICodeRepository : IBaseRepository<Code>
     {
-        IEnumerable<Code> GetCodes(int productId);
+        IEnumerable<Code> GetCodesByProduct(int productId);
     }
 }
