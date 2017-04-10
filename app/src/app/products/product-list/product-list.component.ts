@@ -8,7 +8,7 @@ import { Message } from '../../messages/shared/message';
 
 @Component({
   selector: 'products-list',
-  template: './product-list.component.html',
+  templateUrl: './product-list.component.html',
   providers: [ProductService]
 })
 
