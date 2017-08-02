@@ -1,0 +1,14 @@
+<div *ngIf="sale" class="container-fluid">
+    <div *ngFor='let saleItem of sale.SaleItems'>
+        <div class="row">
+            <label for="name">{{ 'NAME' | translate }}:</label>
+            <span id="name" name="name">{{saleItem.product.name}}</span>
+        </div>
+        <div class="row">
+            <label for="salePrice">{{ 'PRODUCT.SALEPRICE' | translate }}:</label>
+            <span id="salePrice" name="salePrice">{{product.salePrice}}</span>
+        </div>
+        <h3>{{ 'TOTAL' | translate }}:</h3>
+        <h3>{{sale.totalPrice}}</h3>
+    </div>
+</div>

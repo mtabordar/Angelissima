@@ -5,6 +5,7 @@ import { InventoryComponent } from './inventory/inventory/inventory.component';
 import { SaleComponent } from './sales/sale/sale.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductComponent } from './products/product/product.component';
+import { ReportComponent } from './reports/report/report.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'sale', pathMatch: 'full' },

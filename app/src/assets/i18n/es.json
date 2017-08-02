@@ -1,6 +1,6 @@
 {
     "BARCODE": "Código de barras",
-    "NAME": "Nombre",    
+    "NAME": "Nombre",
     "QUANTITY": "Cantidad",
     "PRICE": "Precio",
     "TOTALPRICE": "Precio total",
@@ -22,12 +22,12 @@
         "TOTALCASH": "Dinero entregado",
         "RETURNCASH": "Dinero a devolver"
     },
-    "PRODUCT":{
-        "PRODUCT":"Producto",
-        "PRODUCTS":"Productos",
+    "PRODUCT": {
+        "PRODUCT": "Producto",
+        "PRODUCTS": "Productos",
         "SALEPRICE": "Precio de Venta",
         "UNITPRICE": "Precio unitario",
-        "DESCRIPTION":"Descripción",
+        "DESCRIPTION": "Descripción",
         "MINIMUNQUANTITY": "Cantidad minima"
     },
     "INVENTORY": {
@@ -36,7 +36,11 @@
         "TOTALQUANTITY": "Cantidad total"
     },
     "REPORT": {
+<<<<<<< 8e8fdefcb0049b0660a5b871412f2e6eca36dd6d
         "REPORTS": "Reportes",
         "DAILYREPORT": "Reporte diario"
+=======
+        "REPORTS": "Reportes"
+>>>>>>> Add Initial Reports functionality
     }
 }
