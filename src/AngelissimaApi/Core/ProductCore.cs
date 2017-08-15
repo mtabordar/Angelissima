@@ -19,6 +19,7 @@
         public void Add(Product item)
         {
             _productRepository.Add(item);
+            _productRepository.SaveChanges();
         }
 
         public Product Find(int id)
@@ -34,6 +35,7 @@
         public void Remove(int id)
         {
             _productRepository.Remove(id);
+            _productRepository.SaveChanges();
         }
 
         public void Update(Product item)

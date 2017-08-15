@@ -52,7 +52,7 @@ export class ProductService {
     return this.http.delete(this.webApiUrl + id)
       .map((responseData) => {
         if (responseData.status == 200) {
-          return "";
+          return responseData.json();
         }
       })
       .catch(ErrorHandling.handleError);

@@ -1,10 +1,14 @@
+import { Message } from '../messages/shared/message';
+import { AlertType } from '../shared/enums';
+
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 
 export default class ErrorHandling {
-    static handleError(error: Response | any) {
+    static handleError(error: Response | any) : Observable<Message> {
         let errMsg: string;
+        let message = new Message;
         if (error instanceof Response) {
             if (error.status == 0) {
                 errMsg = "Could not stablish conection with api.";
@@ -20,7 +24,10 @@ export default class ErrorHandling {
             errMsg = error.message ? error.message : error.toString();
         }
 
-        return Observable.throw(errMsg);
+        message.message = errMsg;
+        message.alertType = AlertType.danger;
+
+        return Observable.throw(message);
     }
 }
 

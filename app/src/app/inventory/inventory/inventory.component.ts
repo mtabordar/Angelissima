@@ -28,8 +28,6 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.message = new Message;
-
     this.inventory = new Inventory;
     this.inventory.product = new Product;
     this.inventory.product.barCodes = new BarCode;
@@ -43,21 +41,21 @@ export class InventoryComponent implements OnInit {
         this.getProduct(productId);
       }
     },
-      error => this.message.message = error);
+      error => this.message = <Message>error);
   }
 
   getInventory(productId: number): void {
     this.inventoryService.getInventoryForProduct(productId)
       .subscribe(
       inventory => this.inventory = (inventory) ? inventory : this.inventory,
-      error => this.message.message = <any>error);
+      error => this.message = <Message>error);
   }
 
   getProduct(id: number): void {
     this.productService.getProduct(id)
       .subscribe(
       product => this.inventory.product = product,
-      error => this.message.message = <any>error);
+      error => this.message = <Message>error);
   }
 
   goBack(): void {
@@ -69,6 +67,6 @@ export class InventoryComponent implements OnInit {
       .subscribe((data) => {
         this.router.navigate(['products']);
       },
-      error => this.message.message = <any>error);
+      error => this.message = <Message>error);
   }
 }

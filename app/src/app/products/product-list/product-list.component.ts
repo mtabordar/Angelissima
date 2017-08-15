@@ -8,8 +8,7 @@ import { Message } from '../../messages/shared/message';
 
 @Component({
   selector: 'products-list',
-  templateUrl: './product-list.component.html',
-  providers: [ProductService]
+  templateUrl: './product-list.component.html'
 })
 
 export class ProductListComponent implements OnInit {
@@ -22,15 +21,13 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.message = new Message;
-    
     this.getProducts();
   }
 
   getProducts(): void {
     this.productService.getProducts().subscribe(
       products => this.loadInfo(products),
-      error => this.message.message = <any>error);
+      error => this.message = <Message>error);
   }
 
   loadInfo(products: Product[]): void {
@@ -45,7 +42,7 @@ export class ProductListComponent implements OnInit {
         var index = this.filteredProducts.indexOf(product);
         this.filteredProducts.splice(index, 1);
       },
-      error => this.message.message = <any>error);
+      error => this.message = <Message>error);
   }
 
   public setPage(pageNo: number): void {

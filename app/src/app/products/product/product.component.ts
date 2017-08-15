@@ -27,26 +27,24 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.message = new Message;
-
-    this.product = new Product;
-    this.product.barCodes = new BarCode;
-    this.product.minimunQuantity = 1;
-
     this.sub = this.route.params.subscribe(params => {
       let productId: number = +params['id'];
       if (productId) {
         this.getProduct(productId);
       }
+      else{
+        this.product = new Product;
+        this.product.barCodes = new BarCode;
+      }
     },
-      error => this.message.message = error);
+      error => this.message = <Message>error);
   }
 
   getProduct(id: number): void {
     this.productService.getProduct(id)
       .subscribe(
       product => this.setProduct(product),
-      error => this.message.message = <any>error);
+      error => this.message = <Message>error);
   }
 
   setProduct(product: Product): void {
@@ -62,7 +60,7 @@ export class ProductComponent implements OnInit {
       .subscribe((data) => {
         this.router.navigate(['products']);
       },
-      error => this.message.message = <any>error);
+      error => this.message = <Message>error);
   }
 
   insertProduct(): void {
@@ -70,7 +68,7 @@ export class ProductComponent implements OnInit {
       .subscribe((data) => {
         this.router.navigate(['products']);
       },
-      error => this.message.message = <any>error);
+      error => this.message = <Message>error);
   }
 
   goBack(): void {

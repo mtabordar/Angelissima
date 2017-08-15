@@ -1,6 +1,6 @@
 {
     "BARCODE": "Bar code",
-    "NAME": "Name",    
+    "NAME": "Name",
     "QUANTITY": "Quantity",
     "PRICE": "Price",
     "TOTALPRICE": "Total Price",
@@ -22,17 +22,21 @@
         "TOTALCASH": "Total Cash",
         "RETURNCASH": "Return cash"
     },
-    "PRODUCT":{
-        "PRODUCT":"Product",
-        "PRODUCTS":"Products",
+    "PRODUCT": {
+        "PRODUCT": "Product",
+        "PRODUCTS": "Products",
         "SALEPRICE": "Sale price",
         "UNITPRICE": "Unit Price",
-        "DESCRIPTION":"Descripcion",
+        "DESCRIPTION": "Descripcion",
         "MINIMUNQUANTITY": "Minimun Quantity"
     },
     "INVENTORY": {
         "INVENTORY": "Inventory",
         "ARRIVEDATE": "Arrive date",
         "TOTALQUANTITY": "Total quantity"
+    },
+    "REPORT": {
+        "REPORTS": "Reports",
+        "DAILYREPORT": "Daily Report"
     }
 }

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { Http } from '@angular/http';
-import { AppRoutingModule } from './app.routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { ProductModule } from './products/product.module';
 import { SaleModule } from './sales/sale.module';
 import { InventoryModule } from './inventory/Inventory.module';

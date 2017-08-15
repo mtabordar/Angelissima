@@ -2,8 +2,6 @@
 {
     using Interfaces;
     using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
 
     public class SaleRepository : BaseRepository<Sale>, ISaleRepository
@@ -23,8 +21,6 @@
                 _context.Entry(saleItem.Product).State = EntityState.Unchanged;
                 _context.Entry(saleItem.Product.BarCodes).State = EntityState.Unchanged;
             }
-
-            _context.SaveChanges();
         }
 
         public int GetTotalSalesProductQuantity(int productId)

@@ -17,6 +17,7 @@
         public void Add(Sale item)
         {
             _saleRepository.Add(item);
+            _saleRepository.SaveChanges();
         }
 
         public Sale Find(int id)
@@ -32,11 +33,13 @@
         public void Remove(int id)
         {
             _saleRepository.Remove(id);
+            _saleRepository.SaveChanges();
         }
 
         public void Update(Sale item)
         {
             _saleRepository.Update(item);
+            _saleRepository.SaveChanges();
         }
     }
 }

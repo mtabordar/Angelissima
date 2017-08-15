@@ -9,7 +9,7 @@ import { PaginationModule } from 'ng2-bootstrap/pagination';
 
 import { ProductService } from './shared/product.service';
 
-import { AppRoutingModule } from '../app.routing.module';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
     imports: [SharedModule, AppRoutingModule, PaginationModule.forRoot()],

@@ -12,7 +12,6 @@ import { SaleService } from '../shared/sale.service';
 import { ProductService } from '../../products/shared/product.service';
 import { TranslateService } from 'ng2-translate';
 
-import { AlertType } from '../../shared/enums';
 import { Message } from '../../messages/shared/message';
 
 @Component({
@@ -35,8 +34,6 @@ export class SaleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.message = new Message;
-
     this.clearForm();
     this.loadInfo();
   }
@@ -45,7 +42,7 @@ export class SaleComponent implements OnInit {
     this.productService.getProducts()
       .subscribe(
       productList => this.mapProductsAutocomplete(productList),
-      error => this.message.message = error);
+      error => this.message = <Message>error);
   }
 
   mapProductsAutocomplete(productList: Product[]): void {
@@ -63,11 +60,10 @@ export class SaleComponent implements OnInit {
       .subscribe((data) => {
         this.clearForm();
         this.translate.get('SAVEMESSAGE').subscribe((res: string) => {
-          this.message.message = res;
-          this.message.alertType = AlertType.success;
+          this.message.message = res;          
         });
       },
-      error => this.message.message = error)
+      error => this.message = <Message>error)
   }
 
   goBack(): void {
