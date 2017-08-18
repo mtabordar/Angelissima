@@ -1,33 +1,39 @@
 ﻿namespace AngelissimaApi.Core
 {
-    using AngelissimaApi.Core.Interfaces;
     using System.Collections.Generic;
-    using AngelissimaApi.Models;
-    using AngelissimaApi.Models.Interfaces;
+    using AutoMapper;
+    using Interfaces;
+    using Models;
+    using Models.Interfaces;
+    using ViewModels;
 
     public class SaleCore : ISaleCore
     {
         private ISaleRepository _saleRepository;
+        private IMapper _mapper;
 
-        public SaleCore(ISaleRepository saleRepository)
+        public SaleCore(ISaleRepository saleRepository, IMapper mapper)
         {
             _saleRepository = saleRepository;
+            _mapper = mapper;
         }
 
-        public void Add(Sale item)
+        public void Add(SaleViewModel item)
         {
-            _saleRepository.Add(item);
+            Sale sale = _mapper.Map<Sale>(item);
+
+            _saleRepository.Add(sale);
             _saleRepository.SaveChanges();
         }
 
-        public Sale Find(int id)
+        public SaleViewModel Find(int id)
         {
-            return _saleRepository.Find(id);
+            return _mapper.Map<SaleViewModel>(_saleRepository.Find(id));
         }
 
-        public IEnumerable<Sale> GetAll()
+        public IEnumerable<SaleViewModel> GetAll()
         {
-            return _saleRepository.GetAll();
+            return _mapper.Map<IEnumerable<SaleViewModel>>(_saleRepository.GetAll());
         }
 
         public void Remove(int id)
@@ -36,9 +42,11 @@
             _saleRepository.SaveChanges();
         }
 
-        public void Update(Sale item)
+        public void Update(SaleViewModel item)
         {
-            _saleRepository.Update(item);
+            Sale sale = _mapper.Map<Sale>(item);
+
+            _saleRepository.Update(sale);
             _saleRepository.SaveChanges();
         }
     }

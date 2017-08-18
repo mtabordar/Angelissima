@@ -27,13 +27,15 @@
         {
             IProductRepository productRepository = Substitute.For<IProductRepository>();
             ICodeRepository codeRepository = Substitute.For<ICodeRepository>();
+            IInventoryCore inventoryCore = Substitute.For<IInventoryCore>();
+            IMapper mapper = Substitute.For<IMapper>();
 
             string products = Data.ResourceManager.GetString("Products");
             IEnumerable<Product> lstProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(products);
 
             productRepository.GetAll().Returns(lstProducts);
 
-            IProductCore controller = new ProductCore(productRepository, codeRepository);
+            IProductCore controller = new ProductCore(productRepository, codeRepository, inventoryCore, mapper);
 
             var result = controller.GetAll();
 
@@ -45,17 +47,19 @@
         {
             IProductRepository productRepository = Substitute.For<IProductRepository>();
             ICodeRepository codeRepository = Substitute.For<ICodeRepository>();
+            IInventoryCore inventoryCore = Substitute.For<IInventoryCore>();
+            IMapper mapper = Substitute.For<IMapper>();
 
             string products = Data.ResourceManager.GetString("Products");
             IEnumerable<Product> lstProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(products);
 
             productRepository.Find(1).Returns(lstProducts.First(lp => lp.Id == 1));
 
-            IProductCore controller = new ProductCore(productRepository, codeRepository);
+            IProductCore controller = new ProductCore(productRepository, codeRepository, inventoryCore, mapper);
 
             var result = controller.Find(1);
 
-            result.Id.Should().Be(1);
+            result.ProductId.Should().Be(1);
         }
     }
 }

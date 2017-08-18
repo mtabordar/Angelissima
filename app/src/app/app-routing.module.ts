@@ -12,7 +12,8 @@ const routes: Routes = [
     { path: 'product/:id/edit', component: ProductComponent },
     { path: 'product', component: ProductComponent },
     { path: 'sale', component: SaleComponent },
-    { path: 'inventory/:id', component: InventoryComponent }
+    { path: 'inventory/:id', component: InventoryComponent },
+    // { path: 'reports', component: }
 ];
 
 @NgModule({

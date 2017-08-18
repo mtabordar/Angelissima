@@ -1,25 +1,20 @@
 ﻿namespace AngelissimaApi.Controllers
 {
-    using AngelissimaApi.Core.Interfaces;
-    using AutoMapper;
+    using System;
+    using Core.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using Models;
-    using System;
-    using System.Collections.Generic;
     using ViewModels;
 
     [Route("api/[controller]")]
     public class InventoryController : Controller
     {
         private IInventoryCore _inventoryCore;
-        private IMapper _mapper;
         private ILogger<InventoryController> _logger;
 
-        public InventoryController(IInventoryCore inventoryCore, IMapper mapper, ILogger<InventoryController> logger)
+        public InventoryController(IInventoryCore inventoryCore, ILogger<InventoryController> logger)
         {
             _inventoryCore = inventoryCore;
-            _mapper = mapper;
             _logger = logger;
         }
 
@@ -29,7 +24,7 @@
         {
             try
             {
-                return Ok(_mapper.Map<IEnumerable<InventoryViewModel>>(_inventoryCore.GetAll()));
+                return Ok(_inventoryCore.GetAll());
             }
             catch (Exception ex)
             {
@@ -44,9 +39,7 @@
         {
             try
             {
-                InventoryViewModel objInventory = _mapper.Map<InventoryViewModel>(_inventoryCore.Find(id));
-
-                return Ok(objInventory);
+                return Ok(_inventoryCore.Find(id));
             }
             catch (Exception ex)
             {
@@ -63,7 +56,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _inventoryCore.Add(_mapper.Map<Inventory>(inventory));
+                    _inventoryCore.Add(inventory);
                     return Created("", inventory);
                 }
                 else
@@ -86,7 +79,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _inventoryCore.Update(_mapper.Map<Inventory>(product));
+                    _inventoryCore.Update(product);
                     return Created("", product);
                 }
                 else

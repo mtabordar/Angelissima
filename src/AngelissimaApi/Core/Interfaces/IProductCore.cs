@@ -1,8 +1,8 @@
 ﻿namespace AngelissimaApi.Core.Interfaces
 {
-    using Models;
+    using ViewModels;
 
-    public interface IProductCore : IBaseCore<Product>
+    public interface IProductCore : IBaseCore<ProductViewModel>
     {
     }
 }

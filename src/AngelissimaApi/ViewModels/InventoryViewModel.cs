@@ -8,8 +8,6 @@
 
         public int Quantity { get; set; }
 
-        public int TotalQuantity { get; set; }
-
         public int ProductId { get; set; }
 
         public ProductViewModel Product { get; set; }

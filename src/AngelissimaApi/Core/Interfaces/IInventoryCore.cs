@@ -1,9 +1,11 @@
 ﻿namespace AngelissimaApi.Core.Interfaces
-{
-    using AngelissimaApi.Models;
+{    
+    using ViewModels;
 
-    public interface IInventoryCore : IBaseCore<Inventory>
+    public interface IInventoryCore : IBaseCore<InventoryViewModel>
     {
-        int GetTotalInventoryProductQuantity(int id);
+        int GetTotalInventoryProductQuantity(int productId);
+
+        int GetAvailableProductQuantity(int productId);
     }
 }

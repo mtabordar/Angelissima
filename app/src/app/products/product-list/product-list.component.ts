@@ -13,9 +13,7 @@ import { Message } from '../../messages/shared/message';
 
 export class ProductListComponent implements OnInit {
   private products: Product[];
-  private filteredProducts: Product[];
-  private totalItems: number;
-  private currentPage: number;
+  private filteredProducts: Product[];  
   private message: Message;
 
   constructor(private productService: ProductService) { }
@@ -31,8 +29,7 @@ export class ProductListComponent implements OnInit {
   }
 
   loadInfo(products: Product[]): void {
-    this.products = products;
-    this.totalItems = products.length;
+    this.products = products;    
     this.filteredProducts = products.slice(0, 10);
   }
 
@@ -43,10 +40,6 @@ export class ProductListComponent implements OnInit {
         this.filteredProducts.splice(index, 1);
       },
       error => this.message = <Message>error);
-  }
-
-  public setPage(pageNo: number): void {
-    this.currentPage = pageNo;
   }
 
   public pageChanged(event: any): void {

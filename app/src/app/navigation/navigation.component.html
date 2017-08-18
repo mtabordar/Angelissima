@@ -1,29 +1,38 @@
 <div class="container">
   <nav class="navbar navbar-default">
-    <div>
+    <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">ANGELISSIMA</a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#angel-nav-bar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="#">ANGELISSIMA</a>
       </div>
+
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="navbar" [collapse]="isCollapsed">
+      <div class="collapse navbar-collapse" id="angel-nav-bar">
         <ul class="nav navbar-nav">
           <li routerLinkActive="active"><a routerLink="/sale" routerLinkActive="active">{{ 'SALE.SALE' | translate }}</a></li>
           <li routerLinkActive="active"><a routerLink="/products" routerLinkActive="active">{{ 'PRODUCT.PRODUCTS' | translate }}</a></li>
+          <li class="dropdown" routerLinkActive="active">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'REPORT.REPORTS' | translate }}</a>
+            <ul class="dropdown-menu">
+              <li><a routerLink="/dailyReports">{{ 'REPORT.DAILYREPORT' | translate }}</a></li>
+            </ul>
+          </li>
         </ul>
         <form class="navbar-form navbar-right">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="{{ 'ACTIONS.SEARCH' | translate }}">
           </div>
           <button type="submit" class="btn btn-default">{{ 'ACTIONS.SEARCH' | translate }}</button>
-        </form>
+        </form>       
       </div>
+      <!-- /.navbar-collapse -->
     </div>
+    <!-- /.container-fluid -->
   </nav>
 </div>

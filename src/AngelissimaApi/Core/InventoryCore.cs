@@ -1,52 +1,70 @@
 ﻿namespace AngelissimaApi.Core
 {
-    using AngelissimaApi.Core.Interfaces;
-    using AngelissimaApi.Models;
-    using AngelissimaApi.Models.Interfaces;
-    using System;
     using System.Collections.Generic;
+    using AutoMapper;
+    using Interfaces;
+    using Models;
+    using Models.Interfaces;
+    using ViewModels;
 
     public class InventoryCore : IInventoryCore
     {
         private IInventoryRepository _inventoryRepository;
         private ISaleRepository _saleRepository;
+        private IMapper _mapper;
 
-        public InventoryCore(IInventoryRepository inventoryRepository, ISaleRepository saleRepository)
+        public InventoryCore(IInventoryRepository inventoryRepository, ISaleRepository saleRepository, IMapper mapper)
         {
             _inventoryRepository = inventoryRepository;
             _saleRepository = saleRepository;
+            _mapper = mapper;
         }
 
-        public void Add(Inventory item)
+        public void Add(InventoryViewModel item)
         {
-            _inventoryRepository.Add(item);
+            Inventory inventory = _mapper.Map<Inventory>(item);
+            _inventoryRepository.Add(inventory);
+            _inventoryRepository.SaveChanges();
         }
 
-        public Inventory Find(int id)
+        public InventoryViewModel Find(int id)
         {
-            Inventory inv = _inventoryRepository.Find(id);
-            inv.Quantity = _inventoryRepository.GetTotalInventoryProductQuantity(id) - _saleRepository.GetTotalSalesProductQuantity(id);
-            return inv;
+            InventoryViewModel inventory = _mapper.Map<InventoryViewModel>(_inventoryRepository.Find(id));
+
+            if (inventory != null)
+            {                
+                inventory.Product.AvailableQuantity = GetAvailableProductQuantity(id);
+            }
+
+            return inventory;
         }
 
-        public IEnumerable<Inventory> GetAll()
+        public IEnumerable<InventoryViewModel> GetAll()
         {
-            return _inventoryRepository.GetAll();
+            return _mapper.Map<IEnumerable<InventoryViewModel>>(_inventoryRepository.GetAll());
         }
 
-        public int GetTotalInventoryProductQuantity(int id)
+        public int GetAvailableProductQuantity(int productId)
         {
-            return _inventoryRepository.GetTotalInventoryProductQuantity(id);
+            return _inventoryRepository.GetTotalInventoryProductQuantity(productId) - _saleRepository.GetTotalSalesProductQuantity(productId);
+        }
+
+        public int GetTotalInventoryProductQuantity(int productiId)
+        {
+            return _inventoryRepository.GetTotalInventoryProductQuantity(productiId);
         }
 
         public void Remove(int id)
         {
             _inventoryRepository.Remove(id);
+            _inventoryRepository.SaveChanges();
         }
 
-        public void Update(Inventory item)
+        public void Update(InventoryViewModel item)
         {
-            _inventoryRepository.Update(item);
-        }
+            Inventory inventory = _mapper.Map<Inventory>(item);
+            _inventoryRepository.Update(inventory);
+            _inventoryRepository.SaveChanges();
+        }        
     }
 }

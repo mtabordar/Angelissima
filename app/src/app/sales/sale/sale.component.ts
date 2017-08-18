@@ -74,10 +74,10 @@ export class SaleComponent implements OnInit {
     if (this.saleItem.productId) {
       this.saleItem.totalPrice = this.saleItem.price * this.saleItem.quantity;
       this.sale.totalPrice += this.saleItem.totalPrice;
-      let reg = this.sale.saleItems.find(r => r.productId == this.saleItem.productId);
-      if (reg) {
-        reg.quantity += this.saleItem.quantity;
-        reg.totalPrice += this.saleItem.price * this.saleItem.quantity;
+      let saleItem = this.sale.saleItems.find(r => r.productId == this.saleItem.productId);
+      if (saleItem) {
+        saleItem.quantity += this.saleItem.quantity;
+        saleItem.totalPrice += this.saleItem.price * this.saleItem.quantity;
       }
       else {
         this.sale.saleItems.push(this.saleItem);
@@ -110,14 +110,19 @@ export class SaleComponent implements OnInit {
   }
 
   onValueChanged(event: any): void {
-    let product: Product = this.productList.find(p => p.productId == event.id)
-    this.mapProduct(product);
+    this.getProduct(event.id);
   }
 
   onBarcodeSearch(): void {
-    let product: Product = this.productList.find(p => p.barCodes.barCode == this.saleItem.product.barCodes.barCode)
+    let productId: number = this.productList.find(p => p.barCodes.barCode == this.saleItem.product.barCodes.barCode).productId;
+    this.getProduct(productId);
+  }
 
-    this.mapProduct(product);
+  getProduct(productId): void{
+    this.productService.getProduct(productId)
+    .subscribe(
+      product => this.mapProduct(product),
+    error => this.message = <Message>error);
   }
 
   mapProduct(product: Product): void {

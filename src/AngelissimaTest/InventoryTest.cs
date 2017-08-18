@@ -10,6 +10,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Xunit;
+    using AutoMapper;
 
     public class InventoryTest
     {
@@ -18,6 +19,7 @@
         {
             IInventoryRepository inventoryRepository = Substitute.For<IInventoryRepository>();
             ISaleRepository saleRepository = Substitute.For<ISaleRepository>();
+            IMapper mapper = Substitute.For<IMapper>();
 
             string inventory = Data.ResourceManager.GetString("Inventory");
             IEnumerable<Inventory> lstInventory = JsonConvert.DeserializeObject<IEnumerable<Inventory>>(inventory);
@@ -30,7 +32,7 @@
 
             saleRepository.GetTotalSalesProductQuantity(1).Returns(lstSales.SelectMany(s => s.SaleItems).Where(si => si.ProductId == 1).Sum(si => si.Quantity));
 
-            IInventoryCore controller = new InventoryCore(inventoryRepository, saleRepository);
+            IInventoryCore controller = new InventoryCore(inventoryRepository, saleRepository, mapper);
 
             var result = controller.Find(1);
 

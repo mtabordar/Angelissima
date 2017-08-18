@@ -19,6 +19,7 @@ export class InventoryComponent implements OnInit {
   inventory: Inventory;
   private message: Message;
   private sub: any;
+  private productId: number;
 
   constructor(private inventoryService: InventoryService
     , private route: ActivatedRoute
@@ -28,17 +29,10 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.inventory = new Inventory;
-    this.inventory.product = new Product;
-    this.inventory.product.barCodes = new BarCode;
-    this.inventory.registrationDate = new Date();
-
     this.sub = this.route.params.subscribe(params => {
-      let productId: number = +params['id'];
-      if (productId) {
-        this.inventory.productId = productId;
-        this.getInventory(productId);
-        this.getProduct(productId);
+      this.productId = +params['id'];
+      if (this.productId) {
+        this.getInventory(this.productId);
       }
     },
       error => this.message = <Message>error);
@@ -47,8 +41,18 @@ export class InventoryComponent implements OnInit {
   getInventory(productId: number): void {
     this.inventoryService.getInventoryForProduct(productId)
       .subscribe(
-      inventory => this.inventory = (inventory) ? inventory : this.inventory,
+      inventory => this.setInventory(inventory),
       error => this.message = <Message>error);
+  }
+
+  setInventory(inventory: Inventory): void {
+    if (inventory) {
+      this.inventory = inventory;
+    }
+    else {
+      this.inventory = new Inventory;
+      this.getProduct(this.productId);
+    }
   }
 
   getProduct(id: number): void {

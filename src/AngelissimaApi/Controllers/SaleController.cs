@@ -1,13 +1,11 @@
 ﻿namespace AngelissimaApi.Controllers
 {
-    using Models;
-    using ViewModels;
+    using System;
     using AutoMapper;
+    using Core.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using System;
-    using System.Collections.Generic;
-    using AngelissimaApi.Core.Interfaces;
+    using ViewModels;
 
     [Route("api/[controller]")]
     public class SaleController : Controller
@@ -29,7 +27,7 @@
         {
             try
             {
-                return Ok(_mapper.Map<IEnumerable<SaleViewModel>>(_saleCore.GetAll()));
+                return Ok(_saleCore.GetAll());
             }
             catch (Exception ex)
             {
@@ -44,7 +42,7 @@
         {
             try
             {
-                return Ok(_mapper.Map<SaleViewModel>(_saleCore.Find(id)));
+                return Ok(_saleCore.Find(id));
             }
             catch (Exception ex)
             {
@@ -61,7 +59,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _saleCore.Add(_mapper.Map<Sale>(sale));
+                    _saleCore.Add(sale);
                     return Created("", sale);
                 }
                 else
@@ -84,7 +82,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _saleCore.Update(_mapper.Map<Sale>(sale));
+                    _saleCore.Update(sale);
                     return Created("", sale);
                 }
                 else

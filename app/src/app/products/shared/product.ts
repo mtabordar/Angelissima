@@ -7,5 +7,6 @@ export class Product {
   unitPrice: number;
   salePrice: number;
   minimunQuantity: number = 1;
+  availableQuantity: number; 
   barCodes: BarCode;
 }

@@ -20,6 +20,8 @@
         public int MinimunQuantity { get; set; }
 
         public BarCodeViewModel BarCodes { get; set; }
+
+        public int AvailableQuantity { get; set; }
     }
 
     public class BarCodeViewModel

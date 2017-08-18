@@ -1,25 +1,20 @@
 ﻿namespace AngelissimaApi.Controllers
 {
-    using AutoMapper;
+    using System;
     using Core.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using Models;
-    using System;
-    using System.Collections.Generic;
     using ViewModels;
 
     [Route("api/[controller]")]
     public class ProductController : Controller
     {
         private IProductCore _productCore;
-        private IMapper _mapper;
         private ILogger<ProductController> _logger;
 
-        public ProductController(IProductCore productCore, IMapper mapper, ILogger<ProductController> logger)
+        public ProductController(IProductCore productCore, ILogger<ProductController> logger)
         {
             _productCore = productCore;
-            _mapper = mapper;
             _logger = logger;
         }
 
@@ -29,7 +24,7 @@
         {
             try
             {
-                return Ok(_mapper.Map<IEnumerable<ProductViewModel>>(_productCore.GetAll()));
+                return Ok(_productCore.GetAll());
             }
             catch (Exception ex)
             {
@@ -44,7 +39,7 @@
         {
             try
             {
-                return Ok(_mapper.Map<ProductViewModel>(_productCore.Find(id)));
+                return Ok(_productCore.Find(id));
             }
             catch (Exception ex)
             {
@@ -61,7 +56,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _productCore.Add(_mapper.Map<Product>(product));
+                    _productCore.Add(product);
                     return Created("", product);
                 }
                 else
@@ -84,7 +79,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    _productCore.Update(_mapper.Map<Product>(product));
+                    _productCore.Update(product);
                     return Created("", product);
                 }
                 else

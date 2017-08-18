@@ -26,8 +26,7 @@
             CreateMap<InventoryViewModel, Inventory>()
                 .ForMember(inv => inv.Id, options => options.Ignore());
 
-            CreateMap<Inventory, InventoryViewModel>()
-                .ForMember(inv => inv.TotalQuantity, options => options.Ignore()); ;
+            CreateMap<Inventory, InventoryViewModel>();                
 
             CreateMap<SaleViewModel, Sale>()
                 .ForMember(sale => sale.UpdatedAt, options => options.Ignore())
