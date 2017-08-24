@@ -36,11 +36,7 @@
         "TOTALQUANTITY": "Cantidad total"
     },
     "REPORT": {
-<<<<<<< 8e8fdefcb0049b0660a5b871412f2e6eca36dd6d
         "REPORTS": "Reportes",
         "DAILYREPORT": "Reporte diario"
-=======
-        "REPORTS": "Reportes"
->>>>>>> Add Initial Reports functionality
     }
 }

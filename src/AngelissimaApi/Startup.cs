@@ -40,7 +40,7 @@
             // Add framework services.
             services.AddMvc();
             services.AddAutoMapper();
-            services.AddDbContext<AngelContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContextPool<AngelContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISaleRepository, SaleRepository>();
