@@ -49,7 +49,8 @@
 
             services.AddScoped<IProductCore, ProductCore>();
             services.AddScoped<IInventoryCore, InventoryCore>();
-            services.AddScoped<ISaleCore, SaleCore>();           
+            services.AddScoped<ISaleCore, SaleCore>();
+            services.AddScoped<IReportCore, ReportCore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

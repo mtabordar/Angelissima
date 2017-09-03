@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using AngelissimaApi.Models.Interfaces;
 
     public class CodeRepository : BaseRepository<Code>, ICodeRepository
     {

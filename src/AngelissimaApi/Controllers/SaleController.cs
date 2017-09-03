@@ -1,11 +1,11 @@
 ﻿namespace AngelissimaApi.Controllers
 {
     using System;
+    using AngelissimaApi.Core.Interfaces;
+    using AngelissimaApi.ViewModels;
     using AutoMapper;
-    using Core.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using ViewModels;
 
     [Route("api/[controller]")]
     public class SaleController : Controller

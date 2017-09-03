@@ -1,6 +1,6 @@
 ﻿namespace AngelissimaApi.Core.Interfaces
 {
-    using ViewModels;
+    using AngelissimaApi.ViewModels;
 
     public interface IProductCore : IBaseCore<ProductViewModel>
     {

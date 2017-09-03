@@ -17,6 +17,7 @@
         public DbSet<Inventory> Inventory { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Code> Codes { get; set; }
+        public DbSet<Report> Report { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,7 @@
             modelBuilder.Entity<Inventory>(InventoryConfiguration.ConfigureInventoryEntity);
             modelBuilder.Entity<Sale>(SaleConfiguration.ConfigureSaleEntity);
             modelBuilder.Entity<SaleItem>(SaleConfiguration.ConfigureSaleItemEntity);
+            modelBuilder.Entity<Report>();
         }
 
         public void EnsureSeedData()

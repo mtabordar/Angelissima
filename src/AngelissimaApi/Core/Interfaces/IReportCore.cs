@@ -2,7 +2,8 @@
 {
     using AngelissimaApi.ViewModels;
 
-    public interface ISaleCore : IBaseCore<SaleViewModel>
+    public interface IReportCore
     {
+        ReportViewModel Find(ReportFilterViewModel filter);
     }
 }

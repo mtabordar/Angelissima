@@ -1,11 +1,11 @@
 ﻿namespace AngelissimaApi.Core
 {
     using System.Collections.Generic;
+    using AngelissimaApi.Core.Interfaces;
+    using AngelissimaApi.Models;
+    using AngelissimaApi.Models.Interfaces;
+    using AngelissimaApi.ViewModels;
     using AutoMapper;
-    using Interfaces;
-    using Models;
-    using Models.Interfaces;
-    using ViewModels;
 
     public class SaleCore : ISaleCore
     {

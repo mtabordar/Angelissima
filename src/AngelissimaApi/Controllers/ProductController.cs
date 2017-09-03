@@ -1,10 +1,10 @@
 ﻿namespace AngelissimaApi.Controllers
 {
     using System;
-    using Core.Interfaces;
+    using AngelissimaApi.Core.Interfaces;
+    using AngelissimaApi.ViewModels;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using ViewModels;
 
     [Route("api/[controller]")]
     public class ProductController : Controller

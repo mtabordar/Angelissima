@@ -1,6 +1,5 @@
-﻿namespace AngelissimaApi.Models
+﻿namespace AngelissimaApi.Models.Interfaces
 {
-    using Interfaces;
     using System.Collections.Generic;
 
     public interface ICodeRepository : IBaseRepository<Code>

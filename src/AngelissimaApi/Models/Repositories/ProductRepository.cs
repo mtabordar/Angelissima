@@ -1,9 +1,9 @@
 ﻿namespace AngelissimaApi.Models.Repositories
 {
-    using Interfaces;
-    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
+    using AngelissimaApi.Models.Interfaces;
+    using Microsoft.EntityFrameworkCore;
 
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
