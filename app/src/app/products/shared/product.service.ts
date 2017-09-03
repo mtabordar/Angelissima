@@ -2,59 +2,32 @@ import { Injectable } from '@angular/core';
 import { Product } from './product'
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 
-import ErrorHandling from '../../shared/error-handling';
-var config = require('../../app.config.json');
+import { BaseService } from '../../shared/base.service';
 
 @Injectable()
-export class ProductService {
-  private webApiUrl: string;
-  private controllerName: string;
-
+export class ProductService extends BaseService<Product>{
   constructor(private http: Http) {
-      this.controllerName = "product";
-      this.webApiUrl = `${config.webApiUrl}${this.controllerName}/`;
+    super(http, "Product");
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get(this.webApiUrl)
-      .map((responseData) => { return responseData.json(); })
-      .catch(ErrorHandling.handleError);
+    return this.getAll();
   }
 
   getProduct(id: number): Observable<Product> {
-    return this.http.get(this.webApiUrl + id)
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .catch(ErrorHandling.handleError);
+    return this.get(id);
   }
 
   insertProduct(product: Product): Observable<string> {
-    return this.http.post(this.webApiUrl, JSON.stringify(product))
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .catch(ErrorHandling.handleError);
+    return this.insert(product);
   }
 
   updateProduct(product: Product): Observable<string> {
-    return this.http.put(this.webApiUrl + product.productId, JSON.stringify(product))
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .catch(ErrorHandling.handleError);
+    return this.update(product, product.productId);
   }
 
   deleteProduct(id: number): Observable<string> {
-    return this.http.delete(this.webApiUrl + id)
-      .map((responseData) => {
-        if (responseData.status == 200) {
-          return responseData.json();
-        }
-      })
-      .catch(ErrorHandling.handleError);
+    return this.delete(id);
   }
 }

@@ -2,27 +2,16 @@ import { Injectable } from '@angular/core';
 import { Sale } from './sale'
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 
-import ErrorHandling from '../../shared/error-handling';
-var config = require('../../app.config.json');
+import { BaseService } from '../../shared/base.service';
 
 @Injectable()
-export class SaleService {
-  private webApiUrl: string;
-  private controllerName: string;
-
+export class SaleService extends BaseService<Sale>{
   constructor(private http: Http) {
-    this.controllerName = "sale";
-    this.webApiUrl = `${config.webApiUrl}${this.controllerName}/`;
+    super(http, "sale");
   }
 
   insertSale(sale: Sale): Observable<string> {
-    return this.http.post(this.webApiUrl, JSON.stringify(sale))
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .catch(ErrorHandling.handleError);
+    return this.insert(sale);
   }
 }

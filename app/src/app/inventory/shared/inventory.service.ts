@@ -2,35 +2,20 @@ import { Injectable } from '@angular/core';
 import { Inventory } from './inventory'
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 
-import ErrorHandling from '../../shared/error-handling';
-var config = require('../../app.config.json');
+import { BaseService } from '../../shared/base.service';
 
 @Injectable()
-export class InventoryService {
-  private webApiUrl: string;
-  private controllerName: string;
-
+export class InventoryService extends BaseService<Inventory>{
   constructor(private http: Http) {
-    this.controllerName = "inventory";
-    this.webApiUrl = `${config.webApiUrl}${this.controllerName}/`;
+    super(http, "inventory");
   }
 
   getInventoryForProduct(id: number): Observable<Inventory> {
-    return this.http.get(this.webApiUrl + id)
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .catch(ErrorHandling.handleError);
+    return this.get(id);
   }
 
-  insertInventory(product: Inventory): Observable<string> {
-    return this.http.post(this.webApiUrl, JSON.stringify(product))
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .catch(ErrorHandling.handleError);
+  insertInventory(inventory: Inventory): Observable<string> {
+    return this.insert(inventory);
   }
 }
