@@ -15,8 +15,6 @@
 
     public class Startup
     {
-        //private MapperConfiguration _mapperConfiguration { get; set; }
-
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -40,15 +38,15 @@
             // Add framework services.
             services.AddMvc();
             services.AddAutoMapper();
-            services.AddDbContextPool<AngelContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContextPool<AngelContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISaleRepository, SaleRepository>();
-            services.AddScoped<IInventoryRepository, InventoryRepository>();
-            services.AddScoped<ICodeRepository, CodeRepository>();
+            services.AddScoped<IInventoryItemRepository, InventoryItemRepository>();
+            services.AddScoped<IBarCodeRepository, BarCodeRepository>();
 
             services.AddScoped<IProductCore, ProductCore>();
-            services.AddScoped<IInventoryCore, InventoryCore>();
+            services.AddScoped<IInventoryItemCore, InventoryItemCore>();
             services.AddScoped<ISaleCore, SaleCore>();
             services.AddScoped<IReportCore, ReportCore>();
         }
@@ -62,12 +60,6 @@
             app.UseCors(b => b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseMvc();
-
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                serviceScope.ServiceProvider.GetService<AngelContext>().Database.Migrate();
-                serviceScope.ServiceProvider.GetService<AngelContext>().EnsureSeedData();
-            }
         }
     }
 }

@@ -9,62 +9,62 @@
 
     public class ProductCore : IProductCore
     {
-        private ICodeRepository _codeRepository;
-        private IProductRepository _productRepository;
-        private IInventoryCore _inventoryCore;
-        private IMapper _mapper;
+        private IBarCodeRepository codeRepository;
+        private IProductRepository productRepository;
+        private IInventoryItemCore inventoryCore;
+        private IMapper mapper;
 
-        public ProductCore(IProductRepository productRepository, ICodeRepository codeRepository, IInventoryCore inventoryCore, IMapper mapper)
+        public ProductCore(IProductRepository productRepository, IBarCodeRepository codeRepository, IInventoryItemCore inventoryCore, IMapper mapper)
         {
-            _productRepository = productRepository;
-            _codeRepository = codeRepository;
-            _inventoryCore = inventoryCore;
-            _mapper = mapper;
+            this.productRepository = productRepository;
+            this.codeRepository = codeRepository;
+            this.inventoryCore = inventoryCore;
+            this.mapper = mapper;
         }
 
         public void Add(ProductViewModel item)
         {
-            Product product = _mapper.Map<Product>(item);
+            Product product = mapper.Map<Product>(item);
 
-            _productRepository.Add(product);
-            _productRepository.SaveChanges();
+            productRepository.Add(product);
+            productRepository.SaveChanges();
         }
 
         public ProductViewModel Find(int id)
         {
-            ProductViewModel productView = _mapper.Map<ProductViewModel>(_productRepository.Find(id));
-            productView.AvailableQuantity = _inventoryCore.GetAvailableProductQuantity(id);
+            ProductViewModel productView = mapper.Map<ProductViewModel>(productRepository.Find(id));
+
             return productView;
         }
 
         public IEnumerable<ProductViewModel> GetAll()
         {
-            return _mapper.Map<IEnumerable<ProductViewModel>>(_productRepository.GetAll());
+            return mapper.Map<IEnumerable<ProductViewModel>>(productRepository.GetAll());
         }
 
         public void Remove(int id)
         {
-            _productRepository.Remove(id);
-            _productRepository.SaveChanges();
+            productRepository.Remove(id);
+            productRepository.SaveChanges();
         }
 
         public void Update(ProductViewModel item)
         {
-            Product product = _mapper.Map<Product>(item);
+            Product product = mapper.Map<Product>(item);
 
-            IEnumerable<Code> codes = _codeRepository.GetCodesByProduct(product.Id);
+            IEnumerable<BarCode> codes = codeRepository.GetCodesByProduct(product.Id);
 
-            foreach (Code code in codes)
+            foreach (BarCode code in codes)
             {
-                _codeRepository.Remove(code);
+                codeRepository.Remove(code);
             }
 
-            _codeRepository.SaveChanges();
+            codeRepository.SaveChanges();
 
-            _productRepository.Update(product);
-            _codeRepository.Add(product.BarCodes);
+            productRepository.Update(product);
+            codeRepository.AddRange(product.BarCodes);
 
-            _productRepository.SaveChanges();
+            productRepository.SaveChanges();
         }
     }
 }

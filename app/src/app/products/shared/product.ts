@@ -6,7 +6,6 @@ export class Product {
   description: string;
   unitPrice: number;
   salePrice: number;
-  minimunQuantity: number = 1;
-  availableQuantity: number; 
-  barCodes: BarCode;
+  recommendedQuantity: number = 1;
+  barCodes: BarCode[];
 }

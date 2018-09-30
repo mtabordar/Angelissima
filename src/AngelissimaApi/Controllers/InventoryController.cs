@@ -3,16 +3,17 @@
     using System;
     using AngelissimaApi.Core.Interfaces;
     using AngelissimaApi.ViewModels;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
     [Route("api/[controller]")]
     public class InventoryController : Controller
     {
-        private IInventoryCore _inventoryCore;
+        private IInventoryItemCore _inventoryCore;
         private ILogger<InventoryController> _logger;
 
-        public InventoryController(IInventoryCore inventoryCore, ILogger<InventoryController> logger)
+        public InventoryController(IInventoryItemCore inventoryCore, ILogger<InventoryController> logger)
         {
             _inventoryCore = inventoryCore;
             _logger = logger;
@@ -29,7 +30,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, Json(ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, Json(ex.Message));
             }
         }
 
@@ -44,13 +45,13 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, Json(ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, Json(ex.Message));
             }
         }
 
         // POST api/inventory
         [HttpPost]
-        public IActionResult Post([FromBody]InventoryViewModel inventory)
+        public IActionResult Post([FromBody]InventoryItemViewModel inventory)
         {
             try
             {
@@ -67,13 +68,13 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, Json(ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, Json(ex.Message));
             }
         }
 
         // PUT api/inventory/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]InventoryViewModel product)
+        public IActionResult Put(int id, [FromBody]InventoryItemViewModel product)
         {
             try
             {
@@ -90,7 +91,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, Json(ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, Json(ex.Message));
             }
         }
 
@@ -106,7 +107,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, Json(ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, Json(ex.Message));
             }
         }
     }

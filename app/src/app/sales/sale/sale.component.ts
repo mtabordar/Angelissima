@@ -84,7 +84,7 @@ export class SaleComponent implements OnInit {
       }
       this.saleItem = new SaleItem;
       this.saleItem.product = new Product;
-      this.saleItem.product.barCodes = new BarCode;
+      this.saleItem.product.barCodes = new Array<BarCode>();
     }
   }
 
@@ -105,7 +105,7 @@ export class SaleComponent implements OnInit {
     this.sale.saleItems = new Array<SaleItem>();
     this.saleItem = new SaleItem;
     this.saleItem.product = new Product;
-    this.saleItem.product.barCodes = new BarCode;
+    this.saleItem.product.barCodes = new Array<BarCode>();
     this.totalCash = 0;
   }
 
@@ -114,8 +114,8 @@ export class SaleComponent implements OnInit {
   }
 
   onBarcodeSearch(): void {
-    let productId: number = this.productList.find(p => p.barCodes.barCode == this.saleItem.product.barCodes.barCode).productId;
-    this.getProduct(productId);
+    // let productId: number = this.productList.find(p => p.barCodes.barCode == this.saleItem.product.barCodes.barCode).productId;
+    // this.getProduct(productId);
   }
 
   getProduct(productId): void{

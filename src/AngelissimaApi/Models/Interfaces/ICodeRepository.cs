@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public interface ICodeRepository : IBaseRepository<Code>
+    public interface IBarCodeRepository : IBaseRepository<BarCode>
     {
-        IEnumerable<Code> GetCodesByProduct(int productId);
+        IEnumerable<BarCode> GetCodesByProduct(int productId);
     }
 }

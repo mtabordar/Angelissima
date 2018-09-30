@@ -1,10 +1,11 @@
 ﻿namespace AngelissimaApi.Models.Repositories
 {
+    using AngelissimaApi.Models.Interfaces;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class BaseRepository<TEntity> where TEntity : class
+    public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
         private AngelContext _context;
         internal DbSet<TEntity> _dbSet;
@@ -20,6 +21,11 @@
             _dbSet.Add(entity);
         }
 
+        public virtual void AddRange(IEnumerable<TEntity> entities)
+        {
+            _dbSet.AddRange(entities);
+        }
+
         public virtual TEntity Find(int id)
         {
             return _dbSet.Find(id);
@@ -27,8 +33,7 @@
 
         public virtual IEnumerable<TEntity> GetAll()
         {
-            IQueryable<TEntity> query = _dbSet;
-            return query.ToList();
+            return _dbSet.ToList();
         }
 
         public virtual void Remove(int id)

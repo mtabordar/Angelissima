@@ -1,5 +1,6 @@
 ﻿namespace AngelissimaApi.ViewModels
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class ProductViewModel
@@ -17,15 +18,13 @@
         [Required]
         public decimal SalePrice { get; set; }
 
-        public int MinimunQuantity { get; set; }
+        public int RecommendedQuantity { get; set; }
 
-        public BarCodeViewModel BarCodes { get; set; }
-
-        public int AvailableQuantity { get; set; }
+        public List<BarCodeViewModel> BarCodes { get; set; }
     }
 
     public class BarCodeViewModel
     {
-        public string BarCode { get; set; }
+        public string Code { get; set; }
     }
 }

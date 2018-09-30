@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AngelissimaApi.Migrations
 {
@@ -10,20 +9,34 @@ namespace AngelissimaApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "product",
+                name: "inventoryitemstatus",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    description = table.Column<string>(nullable: true),
-                    minimunquantity = table.Column<int>(nullable: false, defaultValue: 0),
                     name = table.Column<string>(nullable: false),
-                    saleprice = table.Column<decimal>(nullable: false),
-                    unitprice = table.Column<decimal>(nullable: false)
+                    description = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_product", x => x.id);
+                    table.PrimaryKey("PK_inventoryitemstatus", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "product",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    name = table.Column<string>(nullable: false),
+                    description = table.Column<string>(nullable: true),
+                    unitprice = table.Column<decimal>(nullable: false),
+                    saleprice = table.Column<decimal>(nullable: false),
+                    minimunquantity = table.Column<int>(nullable: false, defaultValue: 0)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_product", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,41 +54,47 @@ namespace AngelissimaApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "code",
+                name: "barcode",
                 columns: table => new
                 {
-                    productid = table.Column<int>(nullable: false),
-                    barcode = table.Column<string>(nullable: false)
+                    code = table.Column<string>(nullable: false),
+                    productid = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_code", x => new { x.productid, x.barcode });
+                    table.PrimaryKey("PK_barcode", x => new { x.productid, x.code });
                     table.ForeignKey(
-                        name: "FK_code_product_productid",
+                        name: "FK_barcode_product_productid",
                         column: x => x.productid,
                         principalTable: "product",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "inventory",
+                name: "inventoryitem",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    registrationdate = table.Column<DateTime>(nullable: false),
                     productid = table.Column<int>(nullable: false),
-                    quantity = table.Column<int>(nullable: false),
-                    registrationdate = table.Column<DateTime>(nullable: false)
+                    InventoryItemStatusId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_inventory", x => x.id);
+                    table.PrimaryKey("PK_inventoryitem", x => x.id);
                     table.ForeignKey(
-                        name: "FK_inventory_product_productid",
+                        name: "FK_inventoryitem_inventoryitemstatus_InventoryItemStatusId",
+                        column: x => x.InventoryItemStatusId,
+                        principalTable: "inventoryitemstatus",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_inventoryitem_product_productid",
                         column: x => x.productid,
                         principalTable: "product",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -83,18 +102,17 @@ namespace AngelissimaApi.Migrations
                 name: "saleitem",
                 columns: table => new
                 {
-                    productid = table.Column<int>(nullable: false),
-                    saleid = table.Column<int>(nullable: false),
-                    quantity = table.Column<int>(nullable: false),
-                    price = table.Column<decimal>(nullable: false)
+                    price = table.Column<decimal>(nullable: false),
+                    inventoryitemid = table.Column<int>(nullable: false),
+                    saleid = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_saleitem", x => new { x.productid, x.saleid });
+                    table.PrimaryKey("PK_saleitem", x => new { x.inventoryitemid, x.saleid });
                     table.ForeignKey(
-                        name: "FK_saleitem_product_productid",
-                        column: x => x.productid,
-                        principalTable: "product",
+                        name: "FK_saleitem_inventoryitem_inventoryitemid",
+                        column: x => x.inventoryitemid,
+                        principalTable: "inventoryitem",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -105,15 +123,25 @@ namespace AngelissimaApi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_code_productid",
-                table: "code",
-                column: "productid",
-                unique: true);
+            migrationBuilder.InsertData(
+                table: "inventoryitemstatus",
+                columns: new[] { "id", "description", "name" },
+                values: new object[,]
+                {
+                    { 1, "Available", "Available" },
+                    { 2, "Sold", "Sold" },
+                    { 3, "Defective", "Defective" },
+                    { 4, "NonExistent", "NonExistent" }
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_inventory_productid",
-                table: "inventory",
+                name: "IX_inventoryitem_InventoryItemStatusId",
+                table: "inventoryitem",
+                column: "InventoryItemStatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inventoryitem_productid",
+                table: "inventoryitem",
                 column: "productid");
 
             migrationBuilder.CreateIndex(
@@ -125,19 +153,22 @@ namespace AngelissimaApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "code");
-
-            migrationBuilder.DropTable(
-                name: "inventory");
+                name: "barcode");
 
             migrationBuilder.DropTable(
                 name: "saleitem");
 
             migrationBuilder.DropTable(
-                name: "product");
+                name: "inventoryitem");
 
             migrationBuilder.DropTable(
                 name: "sale");
+
+            migrationBuilder.DropTable(
+                name: "inventoryitemstatus");
+
+            migrationBuilder.DropTable(
+                name: "product");
         }
     }
 }

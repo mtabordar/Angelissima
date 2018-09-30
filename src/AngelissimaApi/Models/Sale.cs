@@ -8,6 +8,6 @@
         public DateTime SaleDate { get; set; }
         public int TotalPrice { get; set; }
 
-        public IEnumerable<SaleItem> SaleItems { get; set; }
+        public List<SaleItem> SaleItems { get; set; }
     }
 }

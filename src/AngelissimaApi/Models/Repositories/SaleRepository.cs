@@ -1,31 +1,28 @@
 ﻿namespace AngelissimaApi.Models.Repositories
 {
+    using System;
     using System.Linq;
     using AngelissimaApi.Models.Interfaces;
     using Microsoft.EntityFrameworkCore;
 
     public class SaleRepository : BaseRepository<Sale>, ISaleRepository
     {
-        private AngelContext _context;
+        private AngelContext context;
 
         public SaleRepository(AngelContext context): base(context)
         {
-            this._context = context;
+            this.context = context;
         }
 
         public override void Add(Sale sale)
         {
-            _context.Sales.Add(sale);
-            foreach (SaleItem saleItem in sale.SaleItems)
-            {
-                _context.Entry(saleItem.Product).State = EntityState.Unchanged;
-                _context.Entry(saleItem.Product.BarCodes).State = EntityState.Unchanged;
-            }
+            context.Sales.Add(sale);
         }
 
         public int GetTotalSalesProductQuantity(int productId)
         {
-            return _context.Sales.Include(s => s.SaleItems).SelectMany(s => s.SaleItems).Where(si => si.ProductId == productId).Sum(si => si.Quantity);
+            //return _context.Sales.Include(s => s.SaleItems).SelectMany(s => s.SaleItems).Where(si => si.InventoryItemId == productId).Sum(si => si.Quantity);
+            throw new NotImplementedException();
         }
     }
 }

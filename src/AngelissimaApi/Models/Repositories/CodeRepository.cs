@@ -4,18 +4,18 @@
     using System.Linq;
     using AngelissimaApi.Models.Interfaces;
 
-    public class CodeRepository : BaseRepository<Code>, ICodeRepository
+    public class BarCodeRepository : BaseRepository<BarCode>, IBarCodeRepository
     {
         private AngelContext _context;
 
-        public CodeRepository(AngelContext context) : base(context)
+        public BarCodeRepository(AngelContext context) : base(context)
         {
             _context = context;
         }
 
-        public IEnumerable<Code> GetCodesByProduct(int productId)
+        public IEnumerable<BarCode> GetCodesByProduct(int productId)
         {
-            return _context.Codes.Where(c => c.ProductId == productId);
+            return _context.BarCodes.Where(c => c.ProductId == productId);
         }
     }
 }

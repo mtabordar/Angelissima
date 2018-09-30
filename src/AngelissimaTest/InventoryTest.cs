@@ -17,22 +17,22 @@
         [Fact]
         public void GetInventoryProductShouldReturnProductQuantity()
         {
-            IInventoryRepository inventoryRepository = Substitute.For<IInventoryRepository>();
+            IInventoryItemRepository inventoryRepository = Substitute.For<IInventoryItemRepository>();
             ISaleRepository saleRepository = Substitute.For<ISaleRepository>();
             IMapper mapper = Substitute.For<IMapper>();
 
             string inventory = Data.ResourceManager.GetString("Inventory");
-            IEnumerable<Inventory> lstInventory = JsonConvert.DeserializeObject<IEnumerable<Inventory>>(inventory);
+            IEnumerable<InventoryItem> lstInventory = JsonConvert.DeserializeObject<IEnumerable<InventoryItem>>(inventory);
 
             string sales = Data.ResourceManager.GetString("Sales");
             IEnumerable<Sale> lstSales = JsonConvert.DeserializeObject<IEnumerable<Sale>>(sales);
 
             inventoryRepository.Find(1).Returns(lstInventory.First(i => i.ProductId == 1));
-            inventoryRepository.GetTotalInventoryProductQuantity(1).Returns(lstInventory.Where(i => i.ProductId == 1).Sum(ti => ti.Quantity));
+            //inventoryRepository.GetTotalInventoryProductQuantity(1).Returns(lstInventory.Where(i => i.ProductId == 1).Sum(ti => ti.Quantity));
 
-            saleRepository.GetTotalSalesProductQuantity(1).Returns(lstSales.SelectMany(s => s.SaleItems).Where(si => si.ProductId == 1).Sum(si => si.Quantity));
+            //saleRepository.GetTotalSalesProductQuantity(1).Returns(lstSales.SelectMany(s => s.SaleItems).Where(si => si.InventoryItemId == 1).Sum(si => si.Quantity));
 
-            IInventoryCore controller = new InventoryCore(inventoryRepository, saleRepository, mapper);
+            IInventoryItemCore controller = new InventoryItemCore(inventoryRepository, saleRepository, mapper);
 
             var result = controller.Find(1);
 

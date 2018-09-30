@@ -18,11 +18,10 @@
         public static void ConfigureSaleItemEntity(EntityTypeBuilder<SaleItem> entityBuilder)
         {
             entityBuilder.ToTable("saleitem");
-            entityBuilder.Property(si => si.ProductId).HasColumnName("productid");
+            entityBuilder.Property(si => si.InventoryItemId).HasColumnName("inventoryitemid");
             entityBuilder.Property(si => si.SaleId).HasColumnName("saleid");
-            entityBuilder.Property(si => si.Quantity).HasColumnName("quantity");
-            entityBuilder.Property(si => si.price).HasColumnName("price");
-            entityBuilder.HasKey(c => new { c.ProductId, c.SaleId });
+            entityBuilder.Property(si => si.Price).HasColumnName("price");
+            entityBuilder.HasKey(c => new { c.InventoryItemId, c.SaleId });
         }
     }
 }

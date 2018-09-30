@@ -3,6 +3,7 @@
     using System;
     using AngelissimaApi.Core.Interfaces;
     using AngelissimaApi.ViewModels;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
@@ -29,7 +30,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, Json(ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, Json(ex.Message));
             }
         }
 
@@ -44,7 +45,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, Json(ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, Json(ex.Message));
             }
         }
 
@@ -67,7 +68,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, Json(ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, Json(ex.Message));
             }
         }
 
@@ -90,7 +91,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, Json(ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, Json(ex.Message));
             }
         }
 
@@ -106,7 +107,7 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, Json(ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, Json(ex.Message));
             }
         }
     }

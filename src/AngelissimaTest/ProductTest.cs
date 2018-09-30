@@ -1,6 +1,5 @@
 ﻿namespace AngelissimaTest
 {
-    using AngelissimaApi;
     using AngelissimaApi.Core;
     using AngelissimaApi.Core.Interfaces;
     using AngelissimaApi.Models;
@@ -16,18 +15,11 @@
     public class ProductTest
     {
         [Fact]
-        public void AutoMapperConfigurationIsValid()
-        {
-            Mapper.Initialize(m => m.AddProfile<AutoMapperProfileConfig>());
-            Mapper.AssertConfigurationIsValid();
-        }
-
-        [Fact]
         public void GetProductsShouldReturnAllProducts()
         {
             IProductRepository productRepository = Substitute.For<IProductRepository>();
-            ICodeRepository codeRepository = Substitute.For<ICodeRepository>();
-            IInventoryCore inventoryCore = Substitute.For<IInventoryCore>();
+            IBarCodeRepository codeRepository = Substitute.For<IBarCodeRepository>();
+            IInventoryItemCore inventoryCore = Substitute.For<IInventoryItemCore>();
             IMapper mapper = Substitute.For<IMapper>();
 
             string products = Data.ResourceManager.GetString("Products");
@@ -46,8 +38,8 @@
         public void GetProductShouldReturnProduct()
         {
             IProductRepository productRepository = Substitute.For<IProductRepository>();
-            ICodeRepository codeRepository = Substitute.For<ICodeRepository>();
-            IInventoryCore inventoryCore = Substitute.For<IInventoryCore>();
+            IBarCodeRepository codeRepository = Substitute.For<IBarCodeRepository>();
+            IInventoryItemCore inventoryCore = Substitute.For<IInventoryItemCore>();
             IMapper mapper = Substitute.For<IMapper>();
 
             string products = Data.ResourceManager.GetString("Products");

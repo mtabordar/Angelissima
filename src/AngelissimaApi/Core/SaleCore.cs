@@ -1,53 +1,73 @@
 ﻿namespace AngelissimaApi.Core
 {
     using System.Collections.Generic;
+    using System.Linq;
     using AngelissimaApi.Core.Interfaces;
     using AngelissimaApi.Models;
     using AngelissimaApi.Models.Interfaces;
+    using AngelissimaApi.Shared.Enums;
     using AngelissimaApi.ViewModels;
     using AutoMapper;
 
     public class SaleCore : ISaleCore
     {
-        private ISaleRepository _saleRepository;
-        private IMapper _mapper;
+        private ISaleRepository saleRepository;
+        private readonly IInventoryItemRepository inventoryItemRepository;
+        private IMapper mapper;
 
-        public SaleCore(ISaleRepository saleRepository, IMapper mapper)
+        public SaleCore(ISaleRepository saleRepository, IInventoryItemRepository inventoryItemRepository, IMapper mapper)
         {
-            _saleRepository = saleRepository;
-            _mapper = mapper;
+            this.saleRepository = saleRepository;
+            this.inventoryItemRepository = inventoryItemRepository;
+            this.mapper = mapper;
         }
 
-        public void Add(SaleViewModel item)
+        public void Add(SaleViewModel saleViewModel)
         {
-            Sale sale = _mapper.Map<Sale>(item);
+            Sale sale = mapper.Map<Sale>(saleViewModel);
 
-            _saleRepository.Add(sale);
-            _saleRepository.SaveChanges();
+            foreach (SaleItemViewModel saleItemViewModel in saleViewModel.SaleItems)
+            {
+                List<InventoryItem> inventoryItems = inventoryItemRepository.TaleInventoryItems(saleItemViewModel.ProductId, saleItemViewModel.Quantity).ToList();
+                inventoryItems.Select(x => { x.InventoryItemStatusId = (int)InventoryItemStatusType.Sold; return x; });
+
+                for (int i = 0; i < saleItemViewModel.Quantity; i++)
+                {
+                    sale.SaleItems.Add(new SaleItem
+                    {
+                        Price = saleItemViewModel.Price,
+                        InventoryItem = inventoryItems[i],
+                        InventoryItemId = inventoryItems[i].Id
+                    });
+                }
+            }
+
+            saleRepository.Add(sale);
+            saleRepository.SaveChanges();
         }
 
         public SaleViewModel Find(int id)
         {
-            return _mapper.Map<SaleViewModel>(_saleRepository.Find(id));
+            return mapper.Map<SaleViewModel>(saleRepository.Find(id));
         }
 
         public IEnumerable<SaleViewModel> GetAll()
         {
-            return _mapper.Map<IEnumerable<SaleViewModel>>(_saleRepository.GetAll());
+            return mapper.Map<IEnumerable<SaleViewModel>>(saleRepository.GetAll());
         }
 
         public void Remove(int id)
         {
-            _saleRepository.Remove(id);
-            _saleRepository.SaveChanges();
+            saleRepository.Remove(id);
+            saleRepository.SaveChanges();
         }
 
         public void Update(SaleViewModel item)
         {
-            Sale sale = _mapper.Map<Sale>(item);
+            Sale sale = mapper.Map<Sale>(item);
 
-            _saleRepository.Update(sale);
-            _saleRepository.SaveChanges();
+            saleRepository.Update(sale);
+            saleRepository.SaveChanges();
         }
     }
 }

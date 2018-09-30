@@ -2,9 +2,11 @@
 {
     using System;
 
-    public class InventoryViewModel
+    public class InventoryItemViewModel
     {
         public DateTime RegistrationDate { get; set; }
+
+        public int AvailableQuantity { get; set; }
 
         public int Quantity { get; set; }
 

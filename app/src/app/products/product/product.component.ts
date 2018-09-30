@@ -34,7 +34,7 @@ export class ProductComponent implements OnInit {
       }
       else{
         this.product = new Product;
-        this.product.barCodes = new BarCode;
+        this.product.barCodes = Array<BarCode>();
       }
     },
       error => this.message = <Message>error);
@@ -49,7 +49,7 @@ export class ProductComponent implements OnInit {
 
   setProduct(product: Product): void {
     if(!product.barCodes){
-      product.barCodes = new BarCode;
+      product.barCodes = Array<BarCode>();
     }
 
     this.product = product;

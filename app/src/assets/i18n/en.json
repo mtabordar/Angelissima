@@ -28,12 +28,12 @@
         "SALEPRICE": "Sale price",
         "UNITPRICE": "Unit Price",
         "DESCRIPTION": "Descripcion",
-        "MINIMUNQUANTITY": "Minimun Quantity"
+        "RECOMMENDEDQUANTITY": "Recomended Quantity"
     },
     "INVENTORY": {
         "INVENTORY": "Inventory",
         "ARRIVEDATE": "Arrive date",
-        "TOTALQUANTITY": "Total quantity"
+        "AVAILABLEQUANTITY": "Available quantity"
     },
     "REPORT": {
         "REPORTS": "Reports",
